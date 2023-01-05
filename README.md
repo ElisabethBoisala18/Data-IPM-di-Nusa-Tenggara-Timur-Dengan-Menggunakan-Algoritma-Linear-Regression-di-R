@@ -1,0 +1,1 @@
+# Data-IPM-di-Nusa-Tenggara-Timur-Dengan-Menggunakan-Algoritma-Linear-Regression-di-R
