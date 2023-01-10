@@ -1,0 +1,104 @@
+---
+title: "Data IPM di Nusa Tenggara Timur dengan algoritma Linear Regression di R"
+date: "`r Sys.Date()`"
+author: Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
+    highlight: tango
+bibliography: references.bib
+---
+
+```{=html}
+<style>
+body{
+text-align: justify}
+</style>
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Pengertian
+
+## Indeks Pembangunan Manusia
+
+Indeks Pembangunan Manusia ( IPM ) adalah capaian dalam mengukur pembangunan manusia berbasis sejumlah komponen dasar kualitas hidup. Sebagai ukuran kualitas hidup, IPM dibangun melalui pendekatan tiga dimensi dasar. Dimensi tersebut mencakup umur panjang dan sehat; pengetahuan, dan kehidupan yang layak.
+
+Ada beberapa manfaat dari IPM
+
+1.  IPM merupakan indikator penting untuk mengukur keberhasilan dalam upaya membangun kualitas hidup manusia (masyarakat/penduduk).
+
+2.  IPM dapat menentukan peringkat atau level pembangunan suatu wilayah/negara.
+
+3.  Bagi Indonesia, IPM merupakan data strategis karena selain sebagai ukuran kinerja Pemerintah, IPM juga digunakan sebagai salah satu alokator penentuan Dana Alokasi Umum (DAU).
+
+## Algoritma Linear Regression
+
+*Menurut Kurniawan (2008)*, Regresi linier adalah metode statistika yang digunakan untuk membentuk model atau hubungan antara satu atau lebih variabel bebas X dengan sebuah variabel terikat Y. Analisis regresi dengan satu variabel bebas X disebut sebagai regresi linier sederhana, sedangkan jika terdapat lebih dari satu variabel bebas X, disebut sebagai regresi linier berganda.
+
+Sedangkan *menurut Sani Susanto (2010, 33)*, Regresi linear merupakan satu cara prediksi yang menggunakan garis lurus untuk menggambarkan hubungan diantara dua variabel atau lebih. variabel tersebut terbagi atas dua jenis yaitu variabel pemberi pengaruh dan variabel terpengaruh. Variabel pemberi pangaruh dapat dianalogikan sebab, sementara variabel terpengaruh merupakan akibat.
+
+Berdasarkan pengertin diatas dapat disimpulkan bahwa, *Linear Regression adalah metode statistika yang digunakan untuk mempelajari hubungan antara variabel atau membentuk model, yang nantinya model tersebut akan digunakan untuk memprediksi masa depan.Walaupun prediksi yang dihasilkan tidak seakurat teknik yang lebih modern, tetapi liner regression cukup simpel dan mudah untuk dipahami.*
+
+# Tahapan Algoritma Linear Regression
+
+Algoritma linear regression memiliki beberapa tahapan, yaitu :
+
+1.  Menyiapkan data
+
+2.  Mengidentifikasi Atribut dan label
+
+3.  Mencari nilai intercept dan slope
+
+4.  Membuat model Linear Regresi
+
+5.  Mengevaluasi Model
+
+# Eksperimen
+
+Pada artikel ini saya akan menggunakan [dataset IPM.](https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing)
+
+## Library
+
+Untuk menjalankan algoritma Linear Regression dibutuhkan packages [dplyr](https://www.rdocumentation.org/packages/dplyr/versions/1.0.10) dan [jtools](https://cran.r-project.org/web/packages/jtools/index.html)
+
+```{r eval=FALSE}
+library(dplyr)
+library(jtools)
+library(rlang)
+```
+
+Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset yang akan digunakan.
+
+## Tahapan Algoritma Linear Regression
+### Menyiapkan Dataset
+
+```{r warning=FALSE}
+library(readr)
+data_ipm_ntt_2018 <- read_csv("data ipm ntt 2018.csv")
+data_ipm_ntt_2018
+```
+Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengidentifikasi label dan atribut.
+
+### Menentukan Label dan Atribut
+Label adalah atribut yang akan dijadikan target (variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).
+
+```{r eval=FALSE}
+colnames(data_ipm_ntt_2018) <- c("Wilayah NTT","Angka Harapan Hidup (Tahun)","Harapan Lama Sekolah (Tahun)","Rata-rata Lama Sekolah (Tahun)","Pengeluaran Rill per Kapita Disesuaikan (Rp.000)","Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)","IPM")
+data_ipm_ntt_2018 <- select (data_ipm_ntt_2018, -c("IPM"))
+```
+
+
+
+# Kesimpulan dan Saran
+
+# Refrerensi
+
+pengertian ipm <https://tanjabtimkab.bps.go.id/subject/26/indeks-pembangunan-manusia.html>
+dataset https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing
+
