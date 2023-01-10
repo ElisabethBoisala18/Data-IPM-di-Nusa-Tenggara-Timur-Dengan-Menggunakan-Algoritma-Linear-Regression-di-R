@@ -90,10 +90,20 @@ Label adalah atribut yang akan dijadikan target (variabel yang dipengaruhi / dep
 
 ```{r eval=FALSE}
 colnames(data_ipm_ntt_2018) <- c("Wilayah NTT","Angka Harapan Hidup (Tahun)","Harapan Lama Sekolah (Tahun)","Rata-rata Lama Sekolah (Tahun)","Pengeluaran Rill per Kapita Disesuaikan (Rp.000)","Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)","IPM")
-data_ipm_ntt_2018 <- select (data_ipm_ntt_2018, -c("IPM"))
+
+data_ipm_ntt_2018 <- select (data_ipm_ntt_2018, -c('IPM'))
+`colnames`(data_ipm_ntt_2018)
 ```
 
+**Informasi Atribut**
 
+[1] "Wilayah NTT"                                                                          
+[2] "Angka Harapan Hidup (Tahun)"                                                          
+[3] "Harapan Lama Sekolah (Tahun)"                                                         
+[4] "Rata-rata Lama Sekolah (Tahun)"                                                       
+[5] "Pengeluaran Rill per Kapita Disesuaikan (Rp.000)"                                     
+[6] "Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)"        
+[7] "IPM"         
 
 # Kesimpulan dan Saran
 

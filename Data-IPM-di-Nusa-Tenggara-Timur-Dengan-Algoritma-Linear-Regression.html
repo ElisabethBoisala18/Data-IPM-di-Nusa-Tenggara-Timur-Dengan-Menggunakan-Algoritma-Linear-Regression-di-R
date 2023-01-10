@@ -267,28 +267,28 @@ text-align: justify}
 <h3>Menyiapkan Dataset</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_ipm_ntt_2018 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data ipm ntt 2018.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Rows: 23 Columns: 8
+<pre><code>## Rows: 23 Columns: 7
 ## -- Column specification --------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (1): Wilayah NTT
-## dbl (7): No., Angka Harapan Hidup (Tahun), Harapan Lama Sekolah (Tahun), Rat...
+## dbl (6): Angka Harapan Hidup (Tahun), Harapan Lama Sekolah (Tahun), Rata-rat...
 ## 
 ## i Use `spec()` to retrieve the full column specification for this data.
 ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_ipm_ntt_2018</span></code></pre></div>
-<pre><code>## # A tibble: 23 x 8
-##      No. `Wilayah NTT`        Angka Hara~1 Harap~2 Rata-~3 Penge~4 Produ~5   IPM
-##    &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1     1 Sumba Barat                  66.6    12.9    6.52    7275    1358  62.9
-##  2     2 Sumba Timur                  64.4    12.8    6.74    9351    3769  64.6
-##  3     3 Kupang                       63.9    13.8    7.11    7472    4624  63.6
-##  4     4 Timor Tengah Selatan         65.9    12.6    6.47    6855    4495  61.6
-##  5     5 Timor Tengah Utara           66.4    13.3    7.26    6357    2733  62.6
-##  6     6 Belu                         63.8    12.2    7.08    7403    2778  61.9
-##  7     7 Alor                         60.8    12.1    7.81    6750    1885  60.1
-##  8     8 Lembata                      66.6    12.3    7.95    7253    1101  64.0
-##  9     9 Flores Timur                 64.7    12.9    7.42    7573    3339  63.6
-## 10    10 Sikka                        66.6    12.7    6.69    7958    3123  63.9
+<pre><code>## # A tibble: 23 x 7
+##    `Wilayah NTT`        Angka Harapan Hi~1 Harap~2 Rata-~3 Penge~4 Produ~5   IPM
+##    &lt;chr&gt;                             &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 Sumba Barat                        66.6    12.9    6.52    7275    1358  62.9
+##  2 Sumba Timur                        64.4    12.8    6.74    9351    3769  64.6
+##  3 Kupang                             63.9    13.8    7.11    7472    4624  63.6
+##  4 Timor Tengah Selatan               65.9    12.6    6.47    6855    4495  61.6
+##  5 Timor Tengah Utara                 66.4    13.3    7.26    6357    2733  62.6
+##  6 Belu                               63.8    12.2    7.08    7403    2778  61.9
+##  7 Alor                               60.8    12.1    7.81    6750    1885  60.1
+##  8 Lembata                            66.6    12.3    7.95    7253    1101  64.0
+##  9 Flores Timur                       64.7    12.9    7.42    7573    3339  63.6
+## 10 Sikka                              66.6    12.7    6.69    7958    3123  63.9
 ## # ... with 13 more rows, and abbreviated variable names
 ## #   1: `Angka Harapan Hidup (Tahun)`, 2: `Harapan Lama Sekolah (Tahun)`,
 ## #   3: `Rata-rata Lama Sekolah (Tahun)`,
@@ -300,7 +300,17 @@ text-align: justify}
 <h3>Menentukan Label dan Atribut</h3>
 <p>Label adalah atribut yang akan dijadikan target (variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data_ipm_ntt_2018) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Wilayah NTT&quot;</span>,<span class="st">&quot;Angka Harapan Hidup (Tahun)&quot;</span>,<span class="st">&quot;Harapan Lama Sekolah (Tahun)&quot;</span>,<span class="st">&quot;Rata-rata Lama Sekolah (Tahun)&quot;</span>,<span class="st">&quot;Pengeluaran Rill per Kapita Disesuaikan (Rp.000)&quot;</span>,<span class="st">&quot;Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)&quot;</span>,<span class="st">&quot;IPM&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data_ipm_ntt_2018 <span class="ot">&lt;-</span> <span class="fu">select</span> (data_ipm_ntt_2018, <span class="sc">-</span><span class="fu">c</span>(<span class="st">&quot;IPM&quot;</span>))</span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data_ipm_ntt_2018 <span class="ot">&lt;-</span> <span class="fu">select</span> (data_ipm_ntt_2018, <span class="sc">-</span><span class="fu">c</span>(<span class="st">&#39;IPM&#39;</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">colnames</span><span class="st">`</span>(data_ipm_ntt_2018)</span></code></pre></div>
+<p><strong>Informasi Atribut</strong></p>
+<p>[1] “Wilayah NTT”<br />
+[2] “Angka Harapan Hidup (Tahun)”<br />
+[3] “Harapan Lama Sekolah (Tahun)”<br />
+[4] “Rata-rata Lama Sekolah (Tahun)”<br />
+[5] “Pengeluaran Rill per Kapita Disesuaikan (Rp.000)”<br />
+[6] “Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)”<br />
+[7] “IPM”</p>
 </div>
 </div>
 </div>
