@@ -7,7 +7,7 @@
 
         <meta name="author" content="Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah" />
     
-        <meta name="date" content="2023-01-10" />
+        <meta name="date" content="2023-01-11" />
     
     <title>Data IPM di Nusa Tenggara Timur dengan algoritma Linear Regression di R</title>
 
@@ -206,7 +206,7 @@
     </div>
     <div id="postamble" data-toggle="wy-nav-shift" class="status">
                   <p class="author"><span class="glyphicon glyphicon-user"></span> Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah</p>
-                        <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-10</p>
+                        <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-11</p>
           </div>
    </div>
      
@@ -257,8 +257,7 @@ text-align: justify}
 <h2>Library</h2>
 <p>Untuk menjalankan algoritma Linear Regression dibutuhkan packages <a href="https://www.rdocumentation.org/packages/dplyr/versions/1.0.10">dplyr</a> dan <a href="https://cran.r-project.org/web/packages/jtools/index.html">jtools</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rlang)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span></code></pre></div>
 <p>Setelah sudah menginstal Packages “dplyr dan jtools,” berikutnya siapkan dataset yang akan digunakan.</p>
 </div>
 <div id="tahapan-algoritma-linear-regression-1" class="section level2">
@@ -267,50 +266,49 @@ text-align: justify}
 <h3>Menyiapkan Dataset</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_ipm_ntt_2018 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data ipm ntt 2018.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Rows: 23 Columns: 7
+<pre><code>## Rows: 22 Columns: 7
 ## -- Column specification --------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (1): Wilayah NTT
-## dbl (6): Angka Harapan Hidup (Tahun), Harapan Lama Sekolah (Tahun), Rata-rat...
+## dbl (6): AHH, HLS, RLS, PRPK, PDRB, IPM
 ## 
 ## i Use `spec()` to retrieve the full column specification for this data.
 ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_ipm_ntt_2018</span></code></pre></div>
-<pre><code>## # A tibble: 23 x 7
-##    `Wilayah NTT`        Angka Harapan Hi~1 Harap~2 Rata-~3 Penge~4 Produ~5   IPM
-##    &lt;chr&gt;                             &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1 Sumba Barat                        66.6    12.9    6.52    7275    1358  62.9
-##  2 Sumba Timur                        64.4    12.8    6.74    9351    3769  64.6
-##  3 Kupang                             63.9    13.8    7.11    7472    4624  63.6
-##  4 Timor Tengah Selatan               65.9    12.6    6.47    6855    4495  61.6
-##  5 Timor Tengah Utara                 66.4    13.3    7.26    6357    2733  62.6
-##  6 Belu                               63.8    12.2    7.08    7403    2778  61.9
-##  7 Alor                               60.8    12.1    7.81    6750    1885  60.1
-##  8 Lembata                            66.6    12.3    7.95    7253    1101  64.0
-##  9 Flores Timur                       64.7    12.9    7.42    7573    3339  63.6
-## 10 Sikka                              66.6    12.7    6.69    7958    3123  63.9
-## # ... with 13 more rows, and abbreviated variable names
-## #   1: `Angka Harapan Hidup (Tahun)`, 2: `Harapan Lama Sekolah (Tahun)`,
-## #   3: `Rata-rata Lama Sekolah (Tahun)`,
-## #   4: `Pengeluaran Rill per Kapita Disesuaikan (Rp.000)`,
-## #   5: `Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)`</code></pre>
+<pre><code>## # A tibble: 22 x 7
+##    `Wilayah NTT`          AHH   HLS   RLS  PRPK  PDRB   IPM
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Sumba Barat           66.6  12.9  6.52  7275  1358  62.9
+##  2 Sumba Timur           64.4  12.8  6.74  9351  3769  64.6
+##  3 Kupang                63.9  13.8  7.11  7472  4624  63.6
+##  4 Timor Tengah Selatan  65.9  12.6  6.47  6855  4495  61.6
+##  5 Timor Tengah Utara    66.4  13.3  7.26  6357  2733  62.6
+##  6 Belu                  63.8  12.2  7.08  7403  2778  61.9
+##  7 Alor                  60.8  12.1  7.81  6750  1885  60.1
+##  8 Lembata               66.6  12.3  7.95  7253  1101  64.0
+##  9 Flores Timur          64.7  12.9  7.42  7573  3339  63.6
+## 10 Sikka                 66.6  12.7  6.69  7958  3123  63.9
+## # ... with 12 more rows</code></pre>
 <p>Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengidentifikasi label dan atribut.</p>
 </div>
 <div id="menentukan-label-dan-atribut" class="section level3">
 <h3>Menentukan Label dan Atribut</h3>
 <p>Label adalah atribut yang akan dijadikan target (variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data_ipm_ntt_2018) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Wilayah NTT&quot;</span>,<span class="st">&quot;Angka Harapan Hidup (Tahun)&quot;</span>,<span class="st">&quot;Harapan Lama Sekolah (Tahun)&quot;</span>,<span class="st">&quot;Rata-rata Lama Sekolah (Tahun)&quot;</span>,<span class="st">&quot;Pengeluaran Rill per Kapita Disesuaikan (Rp.000)&quot;</span>,<span class="st">&quot;Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)&quot;</span>,<span class="st">&quot;IPM&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data_ipm_ntt_2018 <span class="ot">&lt;-</span> <span class="fu">select</span> (data_ipm_ntt_2018, <span class="sc">-</span><span class="fu">c</span>(<span class="st">&#39;IPM&#39;</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">colnames</span><span class="st">`</span>(data_ipm_ntt_2018)</span></code></pre></div>
-<p><strong>Informasi Atribut</strong></p>
-<p>[1] “Wilayah NTT”<br />
-[2] “Angka Harapan Hidup (Tahun)”<br />
-[3] “Harapan Lama Sekolah (Tahun)”<br />
-[4] “Rata-rata Lama Sekolah (Tahun)”<br />
-[5] “Pengeluaran Rill per Kapita Disesuaikan (Rp.000)”<br />
-[6] “Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)”<br />
-[7] “IPM”</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm.data_ipm_ntt_2018 <span class="ot">&lt;-</span> <span class="fu">lm</span>(IPM <span class="sc">~</span> AHH<span class="sc">+</span>HLS<span class="sc">+</span>RLS<span class="sc">+</span>PRPK<span class="sc">+</span>PDRB, <span class="at">data =</span> trainingData)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>perf.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.data_ipm_ntt_2018, testData)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lm.data_ipm_ntt_2018)</span></code></pre></div>
+<pre><code># Call:
+# lm(formula = IPM ~ AHH + HLS + RLS + PRPK + PDRB, data = trainingData)
+
+# Coefficients:
+# (Intercept)          AHH          HLS          RLS         PRPK         PDRB  
+#  3.5527863    0.4669211    0.8108944    1.0406340    0.0015438   -0.0001155  </code></pre>
+<p>Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:</p>
+<p>Intercept : 3.5527863</p>
+<p>Slope (β) : β1 (AHH) : 0.4669211 , β2(HLS)) : 0.8108944 , β3(RLS)) : 1.0406340, β4(PRPK)) : 0.0015438, β5(PDRB) : -0.0001155</p>
+<p>Modelnya dapat ditulis :</p>
+<p>PRP = Intercept + (β1AHH) + (β2HLS) + (β3RLS) + (β4PRPK) + (β5PDRB) + ϵ</p>
 </div>
 </div>
 </div>

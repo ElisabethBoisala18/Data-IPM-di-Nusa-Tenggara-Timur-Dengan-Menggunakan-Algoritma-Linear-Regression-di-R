@@ -70,7 +70,6 @@ Untuk menjalankan algoritma Linear Regression dibutuhkan packages [dplyr](https:
 ```{r eval=FALSE}
 library(dplyr)
 library(jtools)
-library(rlang)
 ```
 
 Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset yang akan digunakan.
@@ -89,21 +88,92 @@ Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengide
 Label adalah atribut yang akan dijadikan target (variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).
 
 ```{r eval=FALSE}
-colnames(data_ipm_ntt_2018) <- c("Wilayah NTT","Angka Harapan Hidup (Tahun)","Harapan Lama Sekolah (Tahun)","Rata-rata Lama Sekolah (Tahun)","Pengeluaran Rill per Kapita Disesuaikan (Rp.000)","Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)","IPM")
+lm.data_ipm_ntt_2018 <- lm(IPM ~ AHH+HLS+RLS+PRPK+PDRB, data = trainingData)
+perf.pred <- predict(lm.data_ipm_ntt_2018, testData)
 
-data_ipm_ntt_2018 <- select (data_ipm_ntt_2018, -c('IPM'))
-`colnames`(data_ipm_ntt_2018)
+print(lm.data_ipm_ntt_2018)
 ```
 
-**Informasi Atribut**
+    # Call:
+    # lm(formula = IPM ~ AHH + HLS + RLS + PRPK + PDRB, data = trainingData)
 
-[1] "Wilayah NTT"                                                                          
-[2] "Angka Harapan Hidup (Tahun)"                                                          
-[3] "Harapan Lama Sekolah (Tahun)"                                                         
-[4] "Rata-rata Lama Sekolah (Tahun)"                                                       
-[5] "Pengeluaran Rill per Kapita Disesuaikan (Rp.000)"                                     
-[6] "Produk Domestik Regional Bruto (PDRB) berdasarkan harga konstan (dalam Jutaan rupiah)"        
-[7] "IPM"         
+    # Coefficients:
+    # (Intercept)          AHH          HLS          RLS         PRPK         PDRB  
+    #  3.5527863    0.4669211    0.8108944    1.0406340    0.0015438   -0.0001155  
+
+Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:
+
+Intercept : 3.5527863
+
+Slope (β) : β1 (AHH) : 0.4669211 , β2(HLS)) : 0.8108944 , β3(RLS)) :  1.0406340,  β4(PRPK)) : 0.0015438, β5(PDRB) : -0.0001155 
+
+Modelnya dapat ditulis :
+
+PRP = Intercept + (β1AHH) + (β2HLS) + (β3RLS) + (β4PRPK) + (β5PDRB) + ϵ
+
+### Actual vs Prediction
+
+Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)
+
+```{r}
+actuals.preds <- data.frame(cbind(actuals= testData$PRP, predicteds= perf.pred))
+
+cor(actuals.preds)
+```
+
+Berikut gambaran hasil yang didapatkan. Terlihat sangat jauh pada hasil aktual dengan prediksinya.
+
+```{r}
+head(actuals.preds)
+```
+## Summary Linear Model
+
+Model linier memiliki rumus yang dapat digunakan untuk memprediksi apa saja yang mempengaruhi Indeks Pembangunan Manusia.
+
+Sebelum menggunakan model regresi, harus dipastikan bahwa model tersebut signifikan secara statistik atau dengan kata lain perlu dilakukan evaluasi model kembali, agar tahu apakah model yang dibuat sudah sesuai dengan data atau belum.
+
+```{r}
+# Ringkasan Model linear  
+
+summary(lm.data_ipm_ntt_2018)
+```
+
+-> Cara mengetahui apakah model regresi yang dipakai cocok dengan data yang ada adalah dengan cara melihat nilai *R-squared* dan *nilai Adjusted R-squared*nya. Jika nilai R-squared dan nilai Adjusted R-squared besar (> 0.70) maka model tesebut dapat dikatakan baik.
+
+Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared =  0.9968 dan nilai Adjusted R-squared =0.995. Karena nilainya > 0.70, maka model tesebut dapat dikatakan baik.
+
+Akan tetapi untuk mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evaluasi lagi berdasarkan nilai eror dan AIC.
+
+## Evaluasi model berdasarkan Eror dan AIC
+
+```{r}
+
+# Syarat pada Min Max Accuracy adalah semakin besar nilainya artinya  semakin baik.
+
+min_max_accuracy <- mean(apply(actuals.preds, 1, min) / apply(actuals.preds, 1, max))
+min_max_accuracy
+```
+
+Didapatkan nilai 36% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan kurang Baik.
+
+```{r}
+
+# Syarat pada MAPE (Mean Absolut Presentase Eror) adalah Semakin rendah nilai MAPE maka semakin baik modelnya
+
+mape <- mean(abs((actuals.preds$predicteds - actuals.preds$actuals))/actuals.preds$actuals)
+mape
+```
+
+Didapatkan nilai 93% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan kurang baik.
+
+```{r eval=FALSE}
+# Syarat pada AIC (Akaike Information Criterion) adalah Semakin rendah niali AIC maka semakin baik modelnya
+
+AIC(lm.data_ipm_ntt_2018)
+```
+
+Didapatkan nilai 1612.401. karena nilai AIC-nya besar maka dapat dikatakan bahwa model yang dihasilkan kurang baik.
+
 
 # Kesimpulan dan Saran
 
