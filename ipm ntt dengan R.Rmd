@@ -22,9 +22,25 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# PENGERTIAN
-## IPM
+# PENDAHULUAN
+## Indeks Pembangunan Manusia (IPM)
+
+Indeks Pembangunan Manusia (IPM) adalah angka yang mewakili kondisi penduduk dalam mengakses hasil pembangunan,memperoleh pendapatan, mengakses kesehatan, pendidikan, dan sejumlah aspek lain.
+
+IPM memiliki beberapa manfaat, antara lain :
+
+  1. IPM merupakan indikator penting untuk mengukur keberhasilan dalam upaya membangun kualitas hidup manusia (masyarakat/penduduk).
+  2. IPM dapat menentukan peringkat atau level pembangunan suatu wilayah/negara.
+  3. Bagi Indonesia, IPM merupakan data strategis karena selain sebagai ukuran kinerja Pemerintah, IPM juga digunakan sebagai salah satu alokator penentuan Dana Alokasi Umum (DAU).
+
+
 ## Linear Regression
+
+*Menurut Kurniawan (2008)*, Regresi linier adalah metode statistika yang digunakan untuk membentuk model atau hubungan antara satu atau lebih variabel bebas X dengan sebuah variabel terikat Y. Analisis regresi dengan satu variabel bebas X disebut sebagai regresi linier sederhana, sedangkan jika terdapat lebih dari satu variabel bebas X, disebut sebagai regresi linier berganda.
+
+Sedangkan *menurut Sani Susanto (2010, 33)*, Regresi linear merupakan satu cara prediksi yang menggunakan garis lurus untuk menggambarkan hubungan diantara dua variabel atau lebih. variabel tersebut terbagi atas dua jenis yaitu variabel pemberi pengaruh dan variabel terpengaruh. Variabel pemberi pangaruh dapat dianalogikan sebab, sementara variabel terpengaruh merupakan akibat.
+
+Berdasarkan pengertin diatas dapat disimpulkan bahwa, *Linear Regression adalah metode statistika yang digunakan untuk mempelajari hubungan antara variabel atau membentuk model, yang nantinya model tersebut akan digunakan untuk memprediksi masa depan.Walaupun prediksi yang dihasilkan tidak seakurat teknik yang lebih modern, tetapi liner regression cukup simpel dan mudah untuk dipahami.*
 
 # TAHAPAN ALGORITMA LINEAR REGRESSION
 
@@ -88,6 +104,9 @@ Label adalah atribut yang akan dijadikan target ( variabel yang dipengaruhi / de
 
 colnames(data_ipm_ntt_2018)
 ```
+    
+    Penjelasan lebih lanjut
+      
       1. Wilayah.NTT : Terdapat 22 wilayah di NTT
       2. AHH         : Angka Harapan Hidup
       3. HLS         : Harapan Lama Sekolah
@@ -103,7 +122,7 @@ data_ipm_ntt_2018 <- select(data_ipm_ntt_2018, -c("IPM"))
 ```
 Pada dataset ini, yang akan dijadikan sebagai label adalah IPM dan yang akan dijdikan sebagai atribut adalah AHH, HLS, RLS, PRPK, dan PDRB.
 
-## Membuat Model Regresi Linear
+## Membangun Model Regresi Linear
 ### Membuat Data “Training” dan “Testing”
 Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu “data training” dan “data testing”.
 Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.
@@ -114,12 +133,32 @@ trainingData <- data_ipm_ntt_2018[trainingRowIndex, ]
 testData <- data_ipm_ntt_2018[-trainingRowIndex,]
 ```
 ### Plot
+### Mencari intecerp dan slope
 
+Sebelum membuat model kita harus mencari nilai intercept dan slope (β) terlebih dahulu.
 
+```{r}
+# Membuat model linear regression multivariable.
 
+lm.data_ipm_ntt_2018 <- lm(IPM ~ AHH+HLS+RLS+PRPK+PDRB, data = trainingData)
+perf.pred <- predict(lm.data_ipm_ntt_2018, testData)
 
+print(lm.data_ipm_ntt_2018)
+```
 
+Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:
 
+**Intercept** : 3.5527863              
+
+**Slope (β)** :
+
+AHH   : 0.4669211, 
+HLS   :  0.8108944, 
+RLS   : 1.0406340,
+PRPK  :0.0015438,
+PDRB  : -0.0001155
+
+### Membuat Model
 
 
 
@@ -174,3 +213,6 @@ testData <- data_ipm_ntt_2018[-trainingRowIndex,]
 
 # KESIMPULAN DAN SARAN
 # REFERENSI
+
+https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu
+https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html

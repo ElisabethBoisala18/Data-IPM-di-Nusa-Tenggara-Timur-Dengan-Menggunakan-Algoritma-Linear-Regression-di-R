@@ -118,9 +118,9 @@
         <div class="Sidebar">
           <div class="SidebarItems" id="toc">
             <ul>
-            <li><a href="#pengertian">PENGERTIAN</a>
+            <li><a href="#pendahuluan">PENDAHULUAN</a>
             <ul>
-            <li><a href="#ipm">IPM</a></li>
+            <li><a href="#indeks-pembangunan-manusia-ipm">Indeks Pembangunan Manusia (IPM)</a></li>
             <li><a href="#linear-regression">Linear Regression</a></li>
             </ul></li>
             <li><a href="#tahapan-algoritma-linear-regression">TAHAPAN ALGORITMA LINEAR REGRESSION</a>
@@ -128,7 +128,7 @@
             <li><a href="#library">Library</a></li>
             <li><a href="#menyiapkan-dataset">Menyiapkan Dataset</a></li>
             <li><a href="#mengidentifikasi-atribut-dan-label">Mengidentifikasi Atribut dan Label</a></li>
-            <li><a href="#membuat-model-regresi-linear">Membuat Model Regresi Linear</a></li>
+            <li><a href="#membangun-model-regresi-linear">Membangun Model Regresi Linear</a></li>
             </ul></li>
             <li><a href="#kesimpulan-dan-saran">KESIMPULAN DAN SARAN</a></li>
             <li><a href="#referensi">REFERENSI</a></li>
@@ -158,13 +158,23 @@
 body{
 text-align: justify}
 </style>
-<div id="pengertian" class="section level1">
-<h1>PENGERTIAN</h1>
-<div id="ipm" class="section level2">
-<h2>IPM</h2>
+<div id="pendahuluan" class="section level1">
+<h1>PENDAHULUAN</h1>
+<div id="indeks-pembangunan-manusia-ipm" class="section level2">
+<h2>Indeks Pembangunan Manusia (IPM)</h2>
+<p>Indeks Pembangunan Manusia (IPM) adalah angka yang mewakili kondisi penduduk dalam mengakses hasil pembangunan,memperoleh pendapatan, mengakses kesehatan, pendidikan, dan sejumlah aspek lain.</p>
+<p>IPM memiliki beberapa manfaat, antara lain :</p>
+<ol style="list-style-type: decimal">
+<li>IPM merupakan indikator penting untuk mengukur keberhasilan dalam upaya membangun kualitas hidup manusia (masyarakat/penduduk).</li>
+<li>IPM dapat menentukan peringkat atau level pembangunan suatu wilayah/negara.</li>
+<li>Bagi Indonesia, IPM merupakan data strategis karena selain sebagai ukuran kinerja Pemerintah, IPM juga digunakan sebagai salah satu alokator penentuan Dana Alokasi Umum (DAU).</li>
+</ol>
 </div>
 <div id="linear-regression" class="section level2">
 <h2>Linear Regression</h2>
+<p><em>Menurut Kurniawan (2008)</em>, Regresi linier adalah metode statistika yang digunakan untuk membentuk model atau hubungan antara satu atau lebih variabel bebas X dengan sebuah variabel terikat Y. Analisis regresi dengan satu variabel bebas X disebut sebagai regresi linier sederhana, sedangkan jika terdapat lebih dari satu variabel bebas X, disebut sebagai regresi linier berganda.</p>
+<p>Sedangkan <em>menurut Sani Susanto (2010, 33)</em>, Regresi linear merupakan satu cara prediksi yang menggunakan garis lurus untuk menggambarkan hubungan diantara dua variabel atau lebih. variabel tersebut terbagi atas dua jenis yaitu variabel pemberi pengaruh dan variabel terpengaruh. Variabel pemberi pangaruh dapat dianalogikan sebab, sementara variabel terpengaruh merupakan akibat.</p>
+<p>Berdasarkan pengertin diatas dapat disimpulkan bahwa, <em>Linear Regression adalah metode statistika yang digunakan untuk mempelajari hubungan antara variabel atau membentuk model, yang nantinya model tersebut akan digunakan untuk memprediksi masa depan.Walaupun prediksi yang dihasilkan tidak seakurat teknik yang lebih modern, tetapi liner regression cukup simpel dan mudah untuk dipahami.</em></p>
 </div>
 </div>
 <div id="tahapan-algoritma-linear-regression" class="section level1">
@@ -259,7 +269,9 @@ str(data_ipm_ntt_2018)</code></pre>
 colnames(data_ipm_ntt_2018)</code></pre>
 <pre><code>## [1] &quot;Wilayah.NTT&quot; &quot;AHH&quot;         &quot;HLS&quot;         &quot;RLS&quot;         &quot;PRPK&quot;       
 ## [6] &quot;PDRB&quot;        &quot;IPM&quot;</code></pre>
-<pre><code>  1. Wilayah.NTT : Terdapat 22 wilayah di NTT
+<pre><code>Penjelasan lebih lanjut
+  
+  1. Wilayah.NTT : Terdapat 22 wilayah di NTT
   2. AHH         : Angka Harapan Hidup
   3. HLS         : Harapan Lama Sekolah
   4. RLS         : Rata-rata Lama Sekolah
@@ -271,8 +283,8 @@ data_ipm_ntt_2018 &lt;- select(data_ipm_ntt_2018, -c(&quot;IPM&quot;))</code></p
 <p>Pada dataset ini, yang akan dijadikan sebagai label adalah IPM dan yang akan dijdikan sebagai atribut adalah AHH, HLS, RLS, PRPK, dan PDRB.</p>
 </div>
 </div>
-<div id="membuat-model-regresi-linear" class="section level2">
-<h2>Membuat Model Regresi Linear</h2>
+<div id="membangun-model-regresi-linear" class="section level2">
+<h2>Membangun Model Regresi Linear</h2>
 <div id="membuat-data-training-dan-testing" class="section level3">
 <h3>Membuat Data “Training” dan “Testing”</h3>
 <p>Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu “data training” dan “data testing.” Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.</p>
@@ -284,6 +296,30 @@ testData &lt;- data_ipm_ntt_2018[-trainingRowIndex,]</code></pre>
 <div id="plot" class="section level3">
 <h3>Plot</h3>
 </div>
+<div id="mencari-intecerp-dan-slope" class="section level3">
+<h3>Mencari intecerp dan slope</h3>
+<p>Sebelum membuat model kita harus mencari nilai intercept dan slope (β) terlebih dahulu.</p>
+<pre class="r"><code># Membuat model linear regression multivariable.
+
+lm.data_ipm_ntt_2018 &lt;- lm(IPM ~ AHH+HLS+RLS+PRPK+PDRB, data = trainingData)
+perf.pred &lt;- predict(lm.data_ipm_ntt_2018, testData)
+
+print(lm.data_ipm_ntt_2018)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = IPM ~ AHH + HLS + RLS + PRPK + PDRB, data = trainingData)
+## 
+## Coefficients:
+## (Intercept)          AHH          HLS          RLS         PRPK         PDRB  
+##   3.5527863    0.4669211    0.8108944    1.0406340    0.0015438   -0.0001155</code></pre>
+<p>Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:</p>
+<p><strong>Intercept</strong> : 3.5527863</p>
+<p><strong>Slope (β)</strong> :</p>
+<p>AHH : 0.4669211, HLS : 0.8108944, RLS : 1.0406340, PRPK :0.0015438, PDRB : -0.0001155</p>
+</div>
+<div id="membuat-model" class="section level3">
+<h3>Membuat Model</h3>
+</div>
 </div>
 </div>
 <div id="kesimpulan-dan-saran" class="section level1">
@@ -291,6 +327,7 @@ testData &lt;- data_ipm_ntt_2018[-trainingRowIndex,]</code></pre>
 </div>
 <div id="referensi" class="section level1">
 <h1>REFERENSI</h1>
+<p><a href="https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu" class="uri">https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu</a> <a href="https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html" class="uri">https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html</a></p>
 </div>
 </div>
 
