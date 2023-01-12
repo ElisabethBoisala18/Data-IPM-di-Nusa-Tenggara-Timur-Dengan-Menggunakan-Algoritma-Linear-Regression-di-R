@@ -61,7 +61,7 @@ Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
 # Eksperimen
 
-Pada artikel ini saya akan menggunakan [dataset IPM.](https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing)
+Dataset yang akan digunakan adalah [dataset IPM.](https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing)
 
 ## Library
 
@@ -79,8 +79,7 @@ Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset
 
 ```{r warning=FALSE}
 library(readr)
-data_ipm_ntt_2018 <- read_csv("data ipm ntt 2018.csv")
-data_ipm_ntt_2018
+data_ipm_ntt_2018 <- read_csv("data_ipm_ntt_2018.csv")
 ```
 Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengidentifikasi label dan atribut.
 
@@ -115,64 +114,16 @@ PRP = Intercept + (β1AHH) + (β2HLS) + (β3RLS) + (β4PRPK) + (β5PDRB) + ϵ
 
 Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)
 
-```{r}
-actuals.preds <- data.frame(cbind(actuals= testData$PRP, predicteds= perf.pred))
+```{r eval=FALSE}
+actuals.preds <- data.frame(cbind(actuals= testData$IPM, predicteds= perf.pred))
 
 cor(actuals.preds)
 ```
 
 Berikut gambaran hasil yang didapatkan. Terlihat sangat jauh pada hasil aktual dengan prediksinya.
 
-```{r}
-head(actuals.preds)
-```
-## Summary Linear Model
 
-Model linier memiliki rumus yang dapat digunakan untuk memprediksi apa saja yang mempengaruhi Indeks Pembangunan Manusia.
 
-Sebelum menggunakan model regresi, harus dipastikan bahwa model tersebut signifikan secara statistik atau dengan kata lain perlu dilakukan evaluasi model kembali, agar tahu apakah model yang dibuat sudah sesuai dengan data atau belum.
-
-```{r}
-# Ringkasan Model linear  
-
-summary(lm.data_ipm_ntt_2018)
-```
-
--> Cara mengetahui apakah model regresi yang dipakai cocok dengan data yang ada adalah dengan cara melihat nilai *R-squared* dan *nilai Adjusted R-squared*nya. Jika nilai R-squared dan nilai Adjusted R-squared besar (> 0.70) maka model tesebut dapat dikatakan baik.
-
-Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared =  0.9968 dan nilai Adjusted R-squared =0.995. Karena nilainya > 0.70, maka model tesebut dapat dikatakan baik.
-
-Akan tetapi untuk mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evaluasi lagi berdasarkan nilai eror dan AIC.
-
-## Evaluasi model berdasarkan Eror dan AIC
-
-```{r}
-
-# Syarat pada Min Max Accuracy adalah semakin besar nilainya artinya  semakin baik.
-
-min_max_accuracy <- mean(apply(actuals.preds, 1, min) / apply(actuals.preds, 1, max))
-min_max_accuracy
-```
-
-Didapatkan nilai 36% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan kurang Baik.
-
-```{r}
-
-# Syarat pada MAPE (Mean Absolut Presentase Eror) adalah Semakin rendah nilai MAPE maka semakin baik modelnya
-
-mape <- mean(abs((actuals.preds$predicteds - actuals.preds$actuals))/actuals.preds$actuals)
-mape
-```
-
-Didapatkan nilai 93% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan kurang baik.
-
-```{r eval=FALSE}
-# Syarat pada AIC (Akaike Information Criterion) adalah Semakin rendah niali AIC maka semakin baik modelnya
-
-AIC(lm.data_ipm_ntt_2018)
-```
-
-Didapatkan nilai 1612.401. karena nilai AIC-nya besar maka dapat dikatakan bahwa model yang dihasilkan kurang baik.
 
 
 # Kesimpulan dan Saran

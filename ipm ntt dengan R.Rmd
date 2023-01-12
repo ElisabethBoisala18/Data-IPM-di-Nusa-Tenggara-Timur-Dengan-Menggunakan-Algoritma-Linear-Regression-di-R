@@ -1,0 +1,127 @@
+---
+title: "Analisis data IPM menggunakan Algoritma Linear Regression di R"
+date: "`r Sys.Date()`"
+author: Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah
+output:
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
+    highlight: tango
+bibliography: references.bib
+---
+
+```{=html}
+<style>
+body{
+text-align: justify}
+</style>
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# PENGERTIAN
+## IPM
+## Linear Regression
+
+# TAHAPAN ALGORITMA LINEAR REGRESSION
+
+Algoritma linear regression memiliki beberapa tahapan, yaitu :
+
+1.  Menyiapkan data
+
+2.  Mengidentifikasi Atribut dan label
+
+3.  Mencari nilai intercept dan slope
+
+4.  Membuat model Linear Regresi
+
+5.  Mengevaluasi Model
+# EKSPERIMEN
+
+## Library
+
+Untuk menjalankan algoritma Linear Regression dibutuhkan packages [dplyr](https://www.rdocumentation.org/packages/dplyr/versions/1.0.10) dan [jtools](https://cran.r-project.org/web/packages/jtools/index.html)
+
+```{r eval=FALSE}
+library(dplyr)
+library(jtools)
+```
+Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset yang akan digunakan.
+
+## Menyiapkan Dataset
+
+```{r}
+# Pastikan dataset yang ingin sudah diimport di R
+
+library(readr)
+data_ipm_ntt_2018 <- read_csv("data_ipm_ntt_2018.csv")
+
+data_ipm_ntt_2018
+```
+Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengidentifikasi label dan atribut.
+
+Label adalah atribut yang akan dijadikan target ( variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).
+
+```{r}
+colnames(data_ipm_ntt_2018) <- c ("Wilayah NTT", "AHH","HLS","RLS","PRPK","PDRB","IPM")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# KESIMPULAN DAN SARAN
+# REFERENSI
