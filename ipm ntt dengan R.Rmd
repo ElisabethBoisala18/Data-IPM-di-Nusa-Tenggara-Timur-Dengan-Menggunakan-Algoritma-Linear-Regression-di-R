@@ -53,7 +53,7 @@ Algoritma linear regression memiliki beberapa tahapan, yaitu :
 3.  Membuat model Linear Regresi
 
 4.  Mengevaluasi Model
-# EKSPERIMEN
+# PEMBAHASAN
 
 ## Library
 
@@ -95,7 +95,7 @@ Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengide
 
 ## Mengidentifikasi Atribut dan Label
 
-Label adalah atribut yang akan dijadikan target ( variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).
+Label adalah atribut yang akan dijadikan target ( variabel respon / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel prediktori / independen).
 
 ### Informasi Variabel
 
@@ -146,18 +146,40 @@ perf.pred <- predict(lm.data_ipm_ntt_2018, testData)
 print(lm.data_ipm_ntt_2018)
 ```
 
-Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:
+**Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:**
 
-**Intercept** : 3.5527863              
+    **Intercept** : 3.5527863              
 
-**Slope (β)** :
+    **Slope (β)** :
 
-AHH   : 0.4669211, 
-HLS   :  0.8108944, 
-RLS   : 1.0406340,
-PRPK  :0.0015438,
-PDRB  : -0.0001155
+    AHH   : 0.4669211, 
+    HLS   :  0.8108944, 
+    RLS   : 1.0406340,
+    PRPK  :0.0015438,
+    PDRB  : -0.0001155
 
+```{r}
+summary(lm.data_ipm_ntt_2018)
+```
+       Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(>|t|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(>|t|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
+       
+Dapat dilihat bahwa :
+
+**Uji Simultan**
+p-value = 6.307e-11. Karena nilai p-value (6.307e-11) < 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.
+
+**Uji Parsial**
+Pr(>|t|) AHH = 1.11e-05
+Pr(>|t|) HLS = 0.002615
+Pr(>|t|) RLS = 0.000446
+Pr(>|t|) PRPK = 6.70e-06
+Pr(>|t|) PDRB = 0.153040
+
+
+       
+       
+    
+  
 ### Membuat Model
 
 

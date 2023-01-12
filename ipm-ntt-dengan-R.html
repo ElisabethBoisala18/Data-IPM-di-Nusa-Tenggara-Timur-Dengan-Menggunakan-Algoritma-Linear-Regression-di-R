@@ -7,7 +7,7 @@
 
         <meta name="author" content="Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah" />
     
-        <meta name="date" content="2023-01-12" />
+        <meta name="date" content="2023-01-13" />
     
     <title>Analisis data IPM menggunakan Algoritma Linear Regression di R</title>
 
@@ -146,7 +146,7 @@
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-12</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-13</p>
            
 
    
@@ -184,7 +184,7 @@ text-align: justify}
 <li><p>Menyiapkan data</p></li>
 <li><p>Mengidentifikasi Atribut dan label</p></li>
 <li><p>Membuat model Linear Regresi</p></li>
-<li><p>Mengevaluasi Model # EKSPERIMEN</p></li>
+<li><p>Mengevaluasi Model # PEMBAHASAN</p></li>
 </ol>
 <div id="library" class="section level2">
 <h2>Library</h2>
@@ -261,7 +261,7 @@ str(data_ipm_ntt_2018)</code></pre>
 </div>
 <div id="mengidentifikasi-atribut-dan-label" class="section level2">
 <h2>Mengidentifikasi Atribut dan Label</h2>
-<p>Label adalah atribut yang akan dijadikan target ( variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).</p>
+<p>Label adalah atribut yang akan dijadikan target ( variabel respon / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel prediktori / independen).</p>
 <div id="informasi-variabel" class="section level3">
 <h3>Informasi Variabel</h3>
 <pre class="r"><code># Melihat variabel apa saja yang ada di dataset 
@@ -312,10 +312,44 @@ print(lm.data_ipm_ntt_2018)</code></pre>
 ## Coefficients:
 ## (Intercept)          AHH          HLS          RLS         PRPK         PDRB  
 ##   3.5527863    0.4669211    0.8108944    1.0406340    0.0015438   -0.0001155</code></pre>
-<p>Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:</p>
-<p><strong>Intercept</strong> : 3.5527863</p>
-<p><strong>Slope (β)</strong> :</p>
-<p>AHH : 0.4669211, HLS : 0.8108944, RLS : 1.0406340, PRPK :0.0015438, PDRB : -0.0001155</p>
+<p><strong>Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:</strong></p>
+<pre><code>**Intercept** : 3.5527863              
+
+**Slope (β)** :
+
+AHH   : 0.4669211, 
+HLS   :  0.8108944, 
+RLS   : 1.0406340,
+PRPK  :0.0015438,
+PDRB  : -0.0001155</code></pre>
+<pre class="r"><code>summary(lm.data_ipm_ntt_2018)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = IPM ~ AHH + HLS + RLS + PRPK + PDRB, data = trainingData)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.51505 -0.17222  0.03984  0.19791  0.56521 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.553e+00  4.896e+00   0.726 0.486500    
+## AHH          4.669e-01  5.358e-02   8.715 1.11e-05 ***
+## HLS          8.109e-01  1.970e-01   4.116 0.002615 ** 
+## RLS          1.041e+00  1.935e-01   5.378 0.000446 ***
+## PRPK         1.544e-03  1.665e-04   9.271 6.70e-06 ***
+## PDRB        -1.156e-04  7.404e-05  -1.561 0.153040    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3522 on 9 degrees of freedom
+## Multiple R-squared:  0.9968, Adjusted R-squared:  0.995 
+## F-statistic: 556.8 on 5 and 9 DF,  p-value: 6.307e-11</code></pre>
+<pre><code>   Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(&gt;|t|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(&gt;|t|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
+   </code></pre>
+<p>Dapat dilihat bahwa :</p>
+<p><strong>Uji Simultan</strong> p-value = 6.307e-11. Karena nilai p-value (6.307e-11) &lt; 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.</p>
+<p><strong>Uji Parsial</strong> Pr(&gt;|t|) AHH = 1.11e-05 Pr(&gt;|t|) HLS = 0.002615 Pr(&gt;|t|) RLS = 0.000446 Pr(&gt;|t|) PRPK = 6.70e-06 Pr(&gt;|t|) PDRB = 0.153040</p>
 </div>
 <div id="membuat-model" class="section level3">
 <h3>Membuat Model</h3>
