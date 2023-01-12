@@ -127,6 +127,8 @@
             <ul>
             <li><a href="#library">Library</a></li>
             <li><a href="#menyiapkan-dataset">Menyiapkan Dataset</a></li>
+            <li><a href="#mengidentifikasi-atribut-dan-label">Mengidentifikasi Atribut dan Label</a></li>
+            <li><a href="#membuat-model-regresi-linear">Membuat Model Regresi Linear</a></li>
             </ul></li>
             <li><a href="#kesimpulan-dan-saran">KESIMPULAN DAN SARAN</a></li>
             <li><a href="#referensi">REFERENSI</a></li>
@@ -171,7 +173,6 @@ text-align: justify}
 <ol style="list-style-type: decimal">
 <li><p>Menyiapkan data</p></li>
 <li><p>Mengidentifikasi Atribut dan label</p></li>
-<li><p>Mencari nilai intercept dan slope</p></li>
 <li><p>Membuat model Linear Regresi</p></li>
 <li><p>Mengevaluasi Model # EKSPERIMEN</p></li>
 </ol>
@@ -184,37 +185,105 @@ library(jtools)</code></pre>
 </div>
 <div id="menyiapkan-dataset" class="section level2">
 <h2>Menyiapkan Dataset</h2>
+<p>Dataset yang akan digunakan pada dataset ini adalah dataset IPM di NTT 2018</p>
 <pre class="r"><code># Pastikan dataset yang ingin sudah diimport di R
 
 library(readr)</code></pre>
 <pre><code>## Warning: package &#39;readr&#39; was built under R version 4.1.3</code></pre>
-<pre class="r"><code>data_ipm_ntt_2018 &lt;- read_csv(&quot;data_ipm_ntt_2018.csv&quot;)</code></pre>
-<pre><code>## Rows: 22 Columns: 7
-## -- Column specification --------------------------------------------------------
-## Delimiter: &quot;,&quot;
-## chr (1): Wilayah NTT
-## dbl (6): AHH, HLS, RLS, PRPK, PDRB, IPM
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>data_ipm_ntt_2018</code></pre>
-<pre><code>## # A tibble: 22 x 7
-##    `Wilayah NTT`          AHH   HLS   RLS  PRPK  PDRB   IPM
-##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Sumba Barat           66.6  12.9  6.52  7275  1358  62.9
-##  2 Sumba Timur           64.4  12.8  6.74  9351  3769  64.6
-##  3 Kupang                63.9  13.8  7.11  7472  4624  63.6
-##  4 Timor Tengah Selatan  65.9  12.6  6.47  6855  4495  61.6
-##  5 Timor Tengah Utara    66.4  13.3  7.26  6357  2733  62.6
-##  6 Belu                  63.8  12.2  7.08  7403  2778  61.9
-##  7 Alor                  60.8  12.1  7.81  6750  1885  60.1
-##  8 Lembata               66.6  12.3  7.95  7253  1101  64.0
-##  9 Flores Timur          64.7  12.9  7.42  7573  3339  63.6
-## 10 Sikka                 66.6  12.7  6.69  7958  3123  63.9
-## # ... with 12 more rows</code></pre>
+<pre class="r"><code>data_ipm_ntt_2018 &lt;- read.csv(&quot;data_ipm_ntt_2018.csv&quot;)
+
+data_ipm_ntt_2018</code></pre>
+<pre><code>##             Wilayah.NTT   AHH   HLS   RLS  PRPK  PDRB   IPM
+## 1           Sumba Barat 66.58 12.88  6.52  7275  1358 62.91
+## 2           Sumba Timur 64.45 12.80  6.74  9351  3769 64.65
+## 3                Kupang 63.86 13.83  7.11  7472  4624 63.55
+## 4  Timor Tengah Selatan 65.91 12.55  6.47  6855  4495 61.58
+## 5    Timor Tengah Utara 66.45 13.29  7.26  6357  2733 62.65
+## 6                  Belu 63.81 12.25  7.08  7403  2778 61.86
+## 7                  Alor 60.80 12.09  7.81  6750  1885 60.14
+## 8               Lembata 66.57 12.26  7.95  7253  1101 63.96
+## 9          Flores Timur 64.70 12.89  7.42  7573  3339 63.55
+## 10                Sikka 66.61 12.70  6.69  7958  3123 63.89
+## 11                 Ende 64.75 13.76  7.79  8995  3907 66.62
+## 12                Ngada 67.59 12.68  8.07  8857  2176 67.10
+## 13            Manggarai 66.23 12.71  7.26  7175  2852 63.32
+## 14            Rote Ndao 63.80 13.16  7.24  6484  1810 61.51
+## 15      Manggarai Barat 66.58 11.55  7.18  7426  2095 62.58
+## 16     Sumba Barat Daya 67.96 12.32  5.76  6093  2117 60.07
+## 17         Sumba Tengah 68.02 13.04  6.32  6298   707 61.89
+## 18              Nagekeo 66.62 12.46  7.82  8219  1303 65.35
+## 19      Manggarai Timur 67.62 11.34  6.65  5809  1917 59.49
+## 20          Sabu Raijua 59.53 13.12  6.06  5245   743 55.79
+## 21               Malaka 64.52 12.76  6.60  5894  1757 59.66
+## 22          Kota Kupang 68.58 16.08 11.46 13199 15556 78.84</code></pre>
+<div id="informasi-dataset" class="section level3">
+<h3>Informasi dataset</h3>
+<pre class="r"><code># Ringkasan Dataset IPM
+
+summary(data_ipm_ntt_2018)</code></pre>
+<pre><code>##  Wilayah.NTT             AHH             HLS             RLS        
+##  Length:22          Min.   :59.53   Min.   :11.34   Min.   : 5.760  
+##  Class :character   1st Qu.:64.47   1st Qu.:12.36   1st Qu.: 6.612  
+##  Mode  :character   Median :66.34   Median :12.73   Median : 7.145  
+##                     Mean   :65.52   Mean   :12.84   Mean   : 7.239  
+##                     3rd Qu.:66.62   3rd Qu.:13.10   3rd Qu.: 7.697  
+##                     Max.   :68.58   Max.   :16.08   Max.   :11.460  
+##       PRPK            PDRB            IPM       
+##  Min.   : 5245   Min.   :  707   Min.   :55.79  
+##  1st Qu.: 6389   1st Qu.: 1770   1st Qu.:61.53  
+##  Median : 7264   Median : 2146   Median :62.78  
+##  Mean   : 7452   Mean   : 3007   Mean   :63.23  
+##  3rd Qu.: 7862   3rd Qu.: 3285   3rd Qu.:63.94  
+##  Max.   :13199   Max.   :15556   Max.   :78.84</code></pre>
+<pre class="r"><code># Struktur dataset IPM
+
+str(data_ipm_ntt_2018)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    22 obs. of  7 variables:
+##  $ Wilayah.NTT: chr  &quot;Sumba Barat&quot; &quot;Sumba Timur&quot; &quot;Kupang&quot; &quot;Timor Tengah Selatan&quot; ...
+##  $ AHH        : num  66.6 64.5 63.9 65.9 66.5 ...
+##  $ HLS        : num  12.9 12.8 13.8 12.6 13.3 ...
+##  $ RLS        : num  6.52 6.74 7.11 6.47 7.26 7.08 7.81 7.95 7.42 6.69 ...
+##  $ PRPK       : int  7275 9351 7472 6855 6357 7403 6750 7253 7573 7958 ...
+##  $ PDRB       : int  1358 3769 4624 4495 2733 2778 1885 1101 3339 3123 ...
+##  $ IPM        : num  62.9 64.7 63.5 61.6 62.6 ...</code></pre>
 <p>Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengidentifikasi label dan atribut.</p>
+</div>
+</div>
+<div id="mengidentifikasi-atribut-dan-label" class="section level2">
+<h2>Mengidentifikasi Atribut dan Label</h2>
 <p>Label adalah atribut yang akan dijadikan target ( variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).</p>
-<pre class="r"><code>colnames(data_ipm_ntt_2018) &lt;- c (&quot;Wilayah NTT&quot;, &quot;AHH&quot;,&quot;HLS&quot;,&quot;RLS&quot;,&quot;PRPK&quot;,&quot;PDRB&quot;,&quot;IPM&quot;)</code></pre>
+<div id="informasi-variabel" class="section level3">
+<h3>Informasi Variabel</h3>
+<pre class="r"><code># Melihat variabel apa saja yang ada di dataset 
+
+colnames(data_ipm_ntt_2018)</code></pre>
+<pre><code>## [1] &quot;Wilayah.NTT&quot; &quot;AHH&quot;         &quot;HLS&quot;         &quot;RLS&quot;         &quot;PRPK&quot;       
+## [6] &quot;PDRB&quot;        &quot;IPM&quot;</code></pre>
+<pre><code>  1. Wilayah.NTT : Terdapat 22 wilayah di NTT
+  2. AHH         : Angka Harapan Hidup
+  3. HLS         : Harapan Lama Sekolah
+  4. RLS         : Rata-rata Lama Sekolah
+  5. PRPK        : Pendapatan rata-rata Per kapita
+  6. PDRB        : Produk Domestik Regional Bruto 
+  7. IPM         : Indeks Pembangunan Manusia</code></pre>
+<pre class="r"><code># Memilih Label
+data_ipm_ntt_2018 &lt;- select(data_ipm_ntt_2018, -c(&quot;IPM&quot;))</code></pre>
+<p>Pada dataset ini, yang akan dijadikan sebagai label adalah IPM dan yang akan dijdikan sebagai atribut adalah AHH, HLS, RLS, PRPK, dan PDRB.</p>
+</div>
+</div>
+<div id="membuat-model-regresi-linear" class="section level2">
+<h2>Membuat Model Regresi Linear</h2>
+<div id="membuat-data-training-dan-testing" class="section level3">
+<h3>Membuat Data “Training” dan “Testing”</h3>
+<p>Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu “data training” dan “data testing.” Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.</p>
+<pre class="r"><code>set.seed(2)
+trainingRowIndex &lt;- sample(3:NROW(data_ipm_ntt_2018), 0.7*NROW(data_ipm_ntt_2018))
+trainingData &lt;- data_ipm_ntt_2018[trainingRowIndex, ]
+testData &lt;- data_ipm_ntt_2018[-trainingRowIndex,]</code></pre>
+</div>
+<div id="plot" class="section level3">
+<h3>Plot</h3>
+</div>
 </div>
 </div>
 <div id="kesimpulan-dan-saran" class="section level1">

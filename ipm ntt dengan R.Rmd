@@ -34,11 +34,9 @@ Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
 2.  Mengidentifikasi Atribut dan label
 
-3.  Mencari nilai intercept dan slope
+3.  Membuat model Linear Regresi
 
-4.  Membuat model Linear Regresi
-
-5.  Mengevaluasi Model
+4.  Mengevaluasi Model
 # EKSPERIMEN
 
 ## Library
@@ -53,22 +51,73 @@ Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset
 
 ## Menyiapkan Dataset
 
+Dataset yang akan digunakan pada dataset ini adalah dataset IPM di NTT 2018
 ```{r}
 # Pastikan dataset yang ingin sudah diimport di R
 
 library(readr)
-data_ipm_ntt_2018 <- read_csv("data_ipm_ntt_2018.csv")
+data_ipm_ntt_2018 <- read.csv("data_ipm_ntt_2018.csv")
 
 data_ipm_ntt_2018
 ```
+### Informasi dataset
+
+```{r}
+# Ringkasan Dataset IPM
+
+summary(data_ipm_ntt_2018)
+```
+
+
+```{r}
+# Struktur dataset IPM
+
+str(data_ipm_ntt_2018)
+```
+
 Jika dataset yang diinginkan sudah siap, maka langkah selanjutnya adalah mengidentifikasi label dan atribut.
+
+## Mengidentifikasi Atribut dan Label
 
 Label adalah atribut yang akan dijadikan target ( variabel yang dipengaruhi / dependen). Sedangkan Atribut adalah faktor atau parameter yang menyebabkan label terjadi (variabel yang mepengaruhi / independen).
 
-```{r}
-colnames(data_ipm_ntt_2018) <- c ("Wilayah NTT", "AHH","HLS","RLS","PRPK","PDRB","IPM")
+### Informasi Variabel
 
+```{r}
+# Melihat variabel apa saja yang ada di dataset 
+
+colnames(data_ipm_ntt_2018)
 ```
+      1. Wilayah.NTT : Terdapat 22 wilayah di NTT
+      2. AHH         : Angka Harapan Hidup
+      3. HLS         : Harapan Lama Sekolah
+      4. RLS         : Rata-rata Lama Sekolah
+      5. PRPK        : Pendapatan rata-rata Per kapita
+      6. PDRB        : Produk Domestik Regional Bruto 
+      7. IPM         : Indeks Pembangunan Manusia
+
+
+```{r eval=FALSE}
+# Memilih Label
+data_ipm_ntt_2018 <- select(data_ipm_ntt_2018, -c("IPM"))
+```
+Pada dataset ini, yang akan dijadikan sebagai label adalah IPM dan yang akan dijdikan sebagai atribut adalah AHH, HLS, RLS, PRPK, dan PDRB.
+
+## Membuat Model Regresi Linear
+### Membuat Data “Training” dan “Testing”
+Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu “data training” dan “data testing”.
+Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.
+```{r}
+set.seed(2)
+trainingRowIndex <- sample(3:NROW(data_ipm_ntt_2018), 0.7*NROW(data_ipm_ntt_2018))
+trainingData <- data_ipm_ntt_2018[trainingRowIndex, ]
+testData <- data_ipm_ntt_2018[-trainingRowIndex,]
+```
+### Plot
+
+
+
+
 
 
 
