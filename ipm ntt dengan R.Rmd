@@ -52,7 +52,9 @@ Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
 3.  Membuat model Linear Regresi
 
-4.  Mengevaluasi Model \# PEMBAHASAN
+4.  Mengevaluasi Model
+
+# PEMBAHASAN
 
 ## Library
 
@@ -67,7 +69,7 @@ Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset
 
 ## Menyiapkan Dataset
 
-Dataset yang akan digunakan pada dataset ini adalah dataset IPM di NTT 2018
+Dataset yang akan digunakan pada dataset ini adalah [dataset IPM di NTT 2018](https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing)
 
 ```{r}
 # Pastikan dataset yang ingin sudah diimport di R
@@ -153,26 +155,27 @@ print(lm.data_ipm_ntt_2018)
 
 **Berdasarkan output di atas, dapat dilihat bahwa bagian 'Koefisien' memiliki enam komponen:**
 
-    **Intercept** : 3.5527863              
+  **Intercept** : 3.5527863              
 
-    **Slope (β)** :
+  **Slope (β)** :
 
-    AHH   : 0.4669211, 
-    HLS   :  0.8108944, 
-    RLS   : 1.0406340,
-    PRPK  :0.0015438,
-    PDRB  : -0.0001155
+  AHH   : 0.4669211, 
+  HLS   :  0.8108944, 
+  RLS   : 1.0406340,
+  PRPK  :0.0015438,
+  PDRB  : -0.0001155
 
 ```{r}
+# Ringkasan model linear regression multivariabel
+
 summary(lm.data_ipm_ntt_2018)
 ```
 
-       Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(>|t|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(>|t|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
-       
+Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(>\|t\|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(>\|t\|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
 
 Dapat dilihat bahwa :
 
-[**Uji Simultan**] (https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/#:~:text=Uji%20simultan%20F%20(Uji%20Simultan,variabel%20independen%20terhadap%20variabel%20dependen.)
+[**Uji Simultan**](http://bit.ly/3GGyVfA)
 
 p-value = 6.307e-11. Karena nilai p-value (6.307e-11) \< 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.
 
@@ -210,4 +213,6 @@ p-value = 6.307e-11. Karena nilai p-value (6.307e-11) \< 0.05 Maka dapat disimpu
 
 # REFERENSI
 
-<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html>
+<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html> <https://rpubs.com/Raissaloretta/ARGBRG16> 
+http://bit.ly/3GGyVfA
+<https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/>

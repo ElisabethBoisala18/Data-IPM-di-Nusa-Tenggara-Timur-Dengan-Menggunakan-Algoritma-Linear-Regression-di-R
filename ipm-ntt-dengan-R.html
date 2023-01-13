@@ -123,7 +123,8 @@
             <li><a href="#indeks-pembangunan-manusia-ipm">Indeks Pembangunan Manusia (IPM)</a></li>
             <li><a href="#linear-regression">Linear Regression</a></li>
             </ul></li>
-            <li><a href="#tahapan-algoritma-linear-regression">TAHAPAN ALGORITMA LINEAR REGRESSION</a>
+            <li><a href="#tahapan-algoritma-linear-regression">TAHAPAN ALGORITMA LINEAR REGRESSION</a></li>
+            <li><a href="#pembahasan">PEMBAHASAN</a>
             <ul>
             <li><a href="#library">Library</a></li>
             <li><a href="#menyiapkan-dataset">Menyiapkan Dataset</a></li>
@@ -184,8 +185,11 @@ text-align: justify}
 <li><p>Menyiapkan data</p></li>
 <li><p>Mengidentifikasi Atribut dan label</p></li>
 <li><p>Membuat model Linear Regresi</p></li>
-<li><p>Mengevaluasi Model # PEMBAHASAN</p></li>
+<li><p>Mengevaluasi Model</p></li>
 </ol>
+</div>
+<div id="pembahasan" class="section level1">
+<h1>PEMBAHASAN</h1>
 <div id="library" class="section level2">
 <h2>Library</h2>
 <p>Untuk menjalankan algoritma Linear Regression dibutuhkan packages <a href="https://www.rdocumentation.org/packages/dplyr/versions/1.0.10">dplyr</a> dan <a href="https://cran.r-project.org/web/packages/jtools/index.html">jtools</a></p>
@@ -195,7 +199,7 @@ library(jtools)</code></pre>
 </div>
 <div id="menyiapkan-dataset" class="section level2">
 <h2>Menyiapkan Dataset</h2>
-<p>Dataset yang akan digunakan pada dataset ini adalah dataset IPM di NTT 2018</p>
+<p>Dataset yang akan digunakan pada dataset ini adalah <a href="https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing">dataset IPM di NTT 2018</a></p>
 <pre class="r"><code># Pastikan dataset yang ingin sudah diimport di R
 
 library(readr)</code></pre>
@@ -313,16 +317,12 @@ print(lm.data_ipm_ntt_2018)</code></pre>
 ## (Intercept)          AHH          HLS          RLS         PRPK         PDRB  
 ##   3.5527863    0.4669211    0.8108944    1.0406340    0.0015438   -0.0001155</code></pre>
 <p><strong>Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:</strong></p>
-<pre><code>**Intercept** : 3.5527863              
+<p><strong>Intercept</strong> : 3.5527863</p>
+<p><strong>Slope (β)</strong> :</p>
+<p>AHH : 0.4669211, HLS : 0.8108944, RLS : 1.0406340, PRPK :0.0015438, PDRB : -0.0001155</p>
+<pre class="r"><code># Ringkasan model linear regression multivariabel
 
-**Slope (β)** :
-
-AHH   : 0.4669211, 
-HLS   :  0.8108944, 
-RLS   : 1.0406340,
-PRPK  :0.0015438,
-PDRB  : -0.0001155</code></pre>
-<pre class="r"><code>summary(lm.data_ipm_ntt_2018)</code></pre>
+summary(lm.data_ipm_ntt_2018)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = IPM ~ AHH + HLS + RLS + PRPK + PDRB, data = trainingData)
@@ -345,10 +345,9 @@ PDRB  : -0.0001155</code></pre>
 ## Residual standard error: 0.3522 on 9 degrees of freedom
 ## Multiple R-squared:  0.9968, Adjusted R-squared:  0.995 
 ## F-statistic: 556.8 on 5 and 9 DF,  p-value: 6.307e-11</code></pre>
-<pre><code>   Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(&gt;|t|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(&gt;|t|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
-   </code></pre>
+<p>Perhatikan hasil output diatas. Jika <strong>nilai p-value</strong> dan <strong>Pr(&gt;|t|)</strong> kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika <strong>nilai p-value</strong> dan <strong>Pr(&gt;|t|)</strong> lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.</p>
 <p>Dapat dilihat bahwa :</p>
-<p>[<strong>Uji Simultan</strong>] (<a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/#" class="uri">https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/#</a>:~:text=Uji%20simultan%20F%20(Uji%20Simultan,variabel%20independen%20terhadap%20variabel%20dependen.)</p>
+<p><a href="http://bit.ly/3GGyVfA"><strong>Uji Simultan</strong></a></p>
 <p>p-value = 6.307e-11. Karena nilai p-value (6.307e-11) &lt; 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.</p>
 <p><a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/"><strong>Uji Parsial</strong></a></p>
 <span class="math display">\[\begin{array}{|c|l|}
@@ -386,7 +385,7 @@ PDRB  : -0.0001155</code></pre>
 </div>
 <div id="referensi" class="section level1">
 <h1>REFERENSI</h1>
-<p><a href="https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu" class="uri">https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu</a> <a href="https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html" class="uri">https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html</a></p>
+<p><a href="https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu" class="uri">https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu</a> <a href="https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html" class="uri">https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html</a> <a href="https://rpubs.com/Raissaloretta/ARGBRG16" class="uri">https://rpubs.com/Raissaloretta/ARGBRG16</a> <a href="http://bit.ly/3GGyVfA" class="uri">http://bit.ly/3GGyVfA</a> <a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/" class="uri">https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/</a></p>
 </div>
 </div>
 
