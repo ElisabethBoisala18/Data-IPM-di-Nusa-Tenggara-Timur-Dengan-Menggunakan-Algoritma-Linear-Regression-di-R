@@ -23,16 +23,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # PENDAHULUAN
+
 ## Indeks Pembangunan Manusia (IPM)
 
 Indeks Pembangunan Manusia (IPM) adalah angka yang mewakili kondisi penduduk dalam mengakses hasil pembangunan,memperoleh pendapatan, mengakses kesehatan, pendidikan, dan sejumlah aspek lain.
 
 IPM memiliki beberapa manfaat, antara lain :
 
-  1. IPM merupakan indikator penting untuk mengukur keberhasilan dalam upaya membangun kualitas hidup manusia (masyarakat/penduduk).
-  2. IPM dapat menentukan peringkat atau level pembangunan suatu wilayah/negara.
-  3. Bagi Indonesia, IPM merupakan data strategis karena selain sebagai ukuran kinerja Pemerintah, IPM juga digunakan sebagai salah satu alokator penentuan Dana Alokasi Umum (DAU).
-
+1.  IPM merupakan indikator penting untuk mengukur keberhasilan dalam upaya membangun kualitas hidup manusia (masyarakat/penduduk).
+2.  IPM dapat menentukan peringkat atau level pembangunan suatu wilayah/negara.
+3.  Bagi Indonesia, IPM merupakan data strategis karena selain sebagai ukuran kinerja Pemerintah, IPM juga digunakan sebagai salah satu alokator penentuan Dana Alokasi Umum (DAU).
 
 ## Linear Regression
 
@@ -52,8 +52,7 @@ Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
 3.  Membuat model Linear Regresi
 
-4.  Mengevaluasi Model
-# PEMBAHASAN
+4.  Mengevaluasi Model \# PEMBAHASAN
 
 ## Library
 
@@ -63,11 +62,13 @@ Untuk menjalankan algoritma Linear Regression dibutuhkan packages [dplyr](https:
 library(dplyr)
 library(jtools)
 ```
+
 Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset yang akan digunakan.
 
 ## Menyiapkan Dataset
 
 Dataset yang akan digunakan pada dataset ini adalah dataset IPM di NTT 2018
+
 ```{r}
 # Pastikan dataset yang ingin sudah diimport di R
 
@@ -76,6 +77,7 @@ data_ipm_ntt_2018 <- read.csv("data_ipm_ntt_2018.csv")
 
 data_ipm_ntt_2018
 ```
+
 ### Informasi dataset
 
 ```{r}
@@ -83,7 +85,6 @@ data_ipm_ntt_2018
 
 summary(data_ipm_ntt_2018)
 ```
-
 
 ```{r}
 # Struktur dataset IPM
@@ -104,7 +105,7 @@ Label adalah atribut yang akan dijadikan target ( variabel respon / dependen). S
 
 colnames(data_ipm_ntt_2018)
 ```
-    
+
     Penjelasan lebih lanjut
       
       1. Wilayah.NTT : Terdapat 22 wilayah di NTT
@@ -115,24 +116,28 @@ colnames(data_ipm_ntt_2018)
       6. PDRB        : Produk Domestik Regional Bruto 
       7. IPM         : Indeks Pembangunan Manusia
 
-
 ```{r eval=FALSE}
 # Memilih Label
 data_ipm_ntt_2018 <- select(data_ipm_ntt_2018, -c("IPM"))
 ```
+
 Pada dataset ini, yang akan dijadikan sebagai label adalah IPM dan yang akan dijdikan sebagai atribut adalah AHH, HLS, RLS, PRPK, dan PDRB.
 
 ## Membangun Model Regresi Linear
-### Membuat Data “Training” dan “Testing”
-Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu “data training” dan “data testing”.
-Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.
+
+### Membuat Data "Training" dan "Testing"
+
+Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu "data training" dan "data testing". Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.
+
 ```{r}
 set.seed(2)
 trainingRowIndex <- sample(3:NROW(data_ipm_ntt_2018), 0.7*NROW(data_ipm_ntt_2018))
 trainingData <- data_ipm_ntt_2018[trainingRowIndex, ]
 testData <- data_ipm_ntt_2018[-trainingRowIndex,]
 ```
+
 ### Plot
+
 ### Mencari intecerp dan slope
 
 Sebelum membuat model kita harus mencari nilai intercept dan slope (β) terlebih dahulu.
@@ -146,7 +151,7 @@ perf.pred <- predict(lm.data_ipm_ntt_2018, testData)
 print(lm.data_ipm_ntt_2018)
 ```
 
-**Berdasarkan output di atas, dapat dilihat bahwa bagian ‘Koefisien’ memiliki enam komponen:**
+**Berdasarkan output di atas, dapat dilihat bahwa bagian 'Koefisien' memiliki enam komponen:**
 
     **Intercept** : 3.5527863              
 
@@ -161,80 +166,48 @@ print(lm.data_ipm_ntt_2018)
 ```{r}
 summary(lm.data_ipm_ntt_2018)
 ```
+
        Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(>|t|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(>|t|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
        
+
 Dapat dilihat bahwa :
 
-**Uji Simultan**
-p-value = 6.307e-11. Karena nilai p-value (6.307e-11) < 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.
+[**Uji Simultan**] (https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/#:~:text=Uji%20simultan%20F%20(Uji%20Simultan,variabel%20independen%20terhadap%20variabel%20dependen.)
 
-**Uji Parsial**
-Pr(>|t|) AHH = 1.11e-05
-Pr(>|t|) HLS = 0.002615
-Pr(>|t|) RLS = 0.000446
-Pr(>|t|) PRPK = 6.70e-06
-Pr(>|t|) PDRB = 0.153040
+p-value = 6.307e-11. Karena nilai p-value (6.307e-11) \< 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.
 
+[**Uji Parsial**](https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/)
 
-       
-       
-    
-  
+```{=tex}
+\begin{array}{|c|l|}
+\hline {\operatorname{Pr}(>|\mathrm{t}|)} & {\text { Keterangan }} \\
+\hline \text { AHH = 1.11e-05 } & \begin{array}{l}
+\text { Karena, nilai AHH < 0.05. Maka dapat disimpulkan bahwa AHH memiliki } \\
+\text { pengaruh yang signifikan terhadap IPM }
+\end{array} \\
+\hline \text { HLS = 0.002615 } & \begin{array}{l}
+\text { Karena, nilai HLS < 0.05. Maka dapat disimpulkan bahwa HLS memiliki } \\
+\text { pengaruh yang signifikan terhadap IPM }
+\end{array} \\
+\hline \text { RLS = 0.000446 } & \begin{array}{l}
+\text { Karena, nilai RLS < 0.05. Maka dapat disimpulkan bahwa RLS memiliki } \\
+\text { pengaruh yang signifikan terhadap IPM }
+\end{array} \\
+\hline \text { PRPK = 6.70e-06 } & \begin{array}{l}
+\text { Karena, nilai PRPK < 0.05. Maka dapat disimpulkan bahwa PRPK memiliki } \\
+\text { pengaruh yang signifikan terhadap IPM }
+\end{array} \\
+\hline \text { PDRB = 0.153040 } & \begin{array}{l}
+\text { Karena, nilai PDRB }>0.05 . \text { Maka dapat disimpulkan bahwa PDRB tidak } \\
+\text { memiliki pengaruh yang signifikan terhadap IPM }
+\end{array} \\
+\hline
+\end{array}
+```
 ### Membuat Model
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # KESIMPULAN DAN SARAN
+
 # REFERENSI
 
-https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu
-https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html
+<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html>
