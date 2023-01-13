@@ -42,7 +42,7 @@ Sedangkan *menurut Sani Susanto (2010, 33)*, Regresi linear merupakan satu cara 
 
 Berdasarkan pengertin diatas dapat disimpulkan bahwa, *Linear Regression adalah metode statistika yang digunakan untuk mempelajari hubungan antara variabel atau membentuk model, yang nantinya model tersebut akan digunakan untuk memprediksi masa depan.Walaupun prediksi yang dihasilkan tidak seakurat teknik yang lebih modern, tetapi liner regression cukup simpel dan mudah untuk dipahami.*
 
-# TAHAPAN ALGORITMA LINEAR REGRESSION
+## TAHAPAN ALGORITMA LINEAR REGRESSION
 
 Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
@@ -50,11 +50,12 @@ Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
 2.  Mengidentifikasi Atribut dan label
 
-3.  Membuat model Linear Regresi
+3.  Membangun model Linear Regresi
 
 4.  Mengevaluasi Model
 
 # PEMBAHASAN
+# Penerapan Algoritma Linear pada data IPM di NTT 2018
 
 ## Library
 
@@ -171,9 +172,17 @@ print(lm.data_ipm_ntt_2018)
 summary(lm.data_ipm_ntt_2018)
 ```
 
+### Analisis
+
 Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(>\|t\|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(>\|t\|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
 
-Dapat dilihat bahwa :
+Berdasarkan hasil output diatas, dapat dilihat bahwa :
+
+Pendugaan parameter Indeks Pembangunan Manusia (IPM) yaitu :
+
+$$
+\hat{\mathrm{Y}}=3.553+0.4669 \mathrm{AHH}+0.8109 \mathrm{HLS}+1.041 \mathrm{RLS}+0.001544 \mathrm{PRPK}+(-0,0001156 \mathrm{PDRB})
+$$
 
 [**Uji Simultan**](http://bit.ly/3GGyVfA)
 
@@ -207,12 +216,22 @@ p-value = 6.307e-11. Karena nilai p-value (6.307e-11) \< 0.05 Maka dapat disimpu
 \hline
 \end{array}
 ```
+
+```{r}
+# Pendeteksian multikolinearitas
+
+library(car)
+vif(lm.data_ipm_ntt_2018)
+```
+
+
 ### Membuat Model
 
 # KESIMPULAN DAN SARAN
 
 # REFERENSI
 
-<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html> <https://rpubs.com/Raissaloretta/ARGBRG16> 
-http://bit.ly/3GGyVfA
+<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html>
+<https://rpubs.com/Raissaloretta/ARGBRG16> 
+<http://bit.ly/3GGyVfA>
 <https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/>

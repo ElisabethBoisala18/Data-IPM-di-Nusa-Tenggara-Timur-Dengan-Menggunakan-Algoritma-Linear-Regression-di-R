@@ -122,9 +122,10 @@
             <ul>
             <li><a href="#indeks-pembangunan-manusia-ipm">Indeks Pembangunan Manusia (IPM)</a></li>
             <li><a href="#linear-regression">Linear Regression</a></li>
-            </ul></li>
             <li><a href="#tahapan-algoritma-linear-regression">TAHAPAN ALGORITMA LINEAR REGRESSION</a></li>
-            <li><a href="#pembahasan">PEMBAHASAN</a>
+            </ul></li>
+            <li><a href="#pembahasan">PEMBAHASAN</a></li>
+            <li><a href="#penerapan-algoritma-linear-pada-data-ipm-di-ntt-2018">Penerapan Algoritma Linear pada data IPM di NTT 2018</a>
             <ul>
             <li><a href="#library">Library</a></li>
             <li><a href="#menyiapkan-dataset">Menyiapkan Dataset</a></li>
@@ -177,19 +178,22 @@ text-align: justify}
 <p>Sedangkan <em>menurut Sani Susanto (2010, 33)</em>, Regresi linear merupakan satu cara prediksi yang menggunakan garis lurus untuk menggambarkan hubungan diantara dua variabel atau lebih. variabel tersebut terbagi atas dua jenis yaitu variabel pemberi pengaruh dan variabel terpengaruh. Variabel pemberi pangaruh dapat dianalogikan sebab, sementara variabel terpengaruh merupakan akibat.</p>
 <p>Berdasarkan pengertin diatas dapat disimpulkan bahwa, <em>Linear Regression adalah metode statistika yang digunakan untuk mempelajari hubungan antara variabel atau membentuk model, yang nantinya model tersebut akan digunakan untuk memprediksi masa depan.Walaupun prediksi yang dihasilkan tidak seakurat teknik yang lebih modern, tetapi liner regression cukup simpel dan mudah untuk dipahami.</em></p>
 </div>
-</div>
-<div id="tahapan-algoritma-linear-regression" class="section level1">
-<h1>TAHAPAN ALGORITMA LINEAR REGRESSION</h1>
+<div id="tahapan-algoritma-linear-regression" class="section level2">
+<h2>TAHAPAN ALGORITMA LINEAR REGRESSION</h2>
 <p>Algoritma linear regression memiliki beberapa tahapan, yaitu :</p>
 <ol style="list-style-type: decimal">
 <li><p>Menyiapkan data</p></li>
 <li><p>Mengidentifikasi Atribut dan label</p></li>
-<li><p>Membuat model Linear Regresi</p></li>
+<li><p>Membangun model Linear Regresi</p></li>
 <li><p>Mengevaluasi Model</p></li>
 </ol>
 </div>
+</div>
 <div id="pembahasan" class="section level1">
 <h1>PEMBAHASAN</h1>
+</div>
+<div id="penerapan-algoritma-linear-pada-data-ipm-di-ntt-2018" class="section level1">
+<h1>Penerapan Algoritma Linear pada data IPM di NTT 2018</h1>
 <div id="library" class="section level2">
 <h2>Library</h2>
 <p>Untuk menjalankan algoritma Linear Regression dibutuhkan packages <a href="https://www.rdocumentation.org/packages/dplyr/versions/1.0.10">dplyr</a> dan <a href="https://cran.r-project.org/web/packages/jtools/index.html">jtools</a></p>
@@ -345,8 +349,15 @@ summary(lm.data_ipm_ntt_2018)</code></pre>
 ## Residual standard error: 0.3522 on 9 degrees of freedom
 ## Multiple R-squared:  0.9968, Adjusted R-squared:  0.995 
 ## F-statistic: 556.8 on 5 and 9 DF,  p-value: 6.307e-11</code></pre>
+</div>
+<div id="analisis" class="section level3">
+<h3>Analisis</h3>
 <p>Perhatikan hasil output diatas. Jika <strong>nilai p-value</strong> dan <strong>Pr(&gt;|t|)</strong> kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika <strong>nilai p-value</strong> dan <strong>Pr(&gt;|t|)</strong> lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.</p>
-<p>Dapat dilihat bahwa :</p>
+<p>Berdasarkan hasil output diatas, dapat dilihat bahwa :</p>
+<p>Pendugaan parameter Indeks Pembangunan Manusia (IPM) yaitu :</p>
+<p><span class="math display">\[
+\hat{\mathrm{Y}}=3.553+0.4669 \mathrm{AHH}+0.8109 \mathrm{HLS}+1.041 \mathrm{RLS}+0.001544 \mathrm{PRPK}+(-0,0001156 \mathrm{PDRB})
+\]</span></p>
 <p><a href="http://bit.ly/3GGyVfA"><strong>Uji Simultan</strong></a></p>
 <p>p-value = 6.307e-11. Karena nilai p-value (6.307e-11) &lt; 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.</p>
 <p><a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/"><strong>Uji Parsial</strong></a></p>
@@ -374,6 +385,15 @@ summary(lm.data_ipm_ntt_2018)</code></pre>
 \end{array} \\
 \hline
 \end{array}\]</span>
+<pre class="r"><code># Pendeteksian multikolinearitas
+
+library(car)</code></pre>
+<pre><code>## Warning: package &#39;car&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## Warning: package &#39;carData&#39; was built under R version 4.1.3</code></pre>
+<pre class="r"><code>vif(lm.data_ipm_ntt_2018)</code></pre>
+<pre><code>##       AHH       HLS       RLS      PRPK      PDRB 
+##  1.624863  4.597609  7.453389 11.017289  8.121980</code></pre>
 </div>
 <div id="membuat-model" class="section level3">
 <h3>Membuat Model</h3>
