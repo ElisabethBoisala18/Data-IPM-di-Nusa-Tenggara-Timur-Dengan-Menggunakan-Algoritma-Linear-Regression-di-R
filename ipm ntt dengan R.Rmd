@@ -173,7 +173,11 @@ Pada dataset ini, yang akan dijadikan sebagai label adalah IPM dan yang akan dij
 
 ### Membuat Data "Training" dan "Testing"
 
-Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu "data training" dan "data testing". Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.
+Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu "data training" dan "data testing".                        
+
+Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.
+
+Pembagian ini terdiri dari 70% training dan 30% testing.
 
 ```{r}
 set.seed(2)
@@ -211,6 +215,12 @@ AHH : 0.4669211, HLS : 0.8108944, RLS : 1.0406340, PRPK :0.0015438, PDRB : -0.00
 actuals.preds1 <- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred1))
 cor(actuals.preds)
 ```
+
+    #           actuals predicteds
+    # actuals    1.000000   0.994194
+    # predicteds 0.994194   1.000000
+Dapat dilihat bahwa korelasi antara data prediksi dan data aktual sangat kuat.
+
 ```{r}
 # Ringkasan model linear regression multivariabel
 
@@ -260,6 +270,7 @@ p-value = 6.307e-11. Karena nilai p-value (6.307e-11) \< 0.05 Maka dapat disimpu
 \hline
 \end{array}
 ```
+
 Karena PDRB tidak berpengaruh secara signifikan terhadap Indeks Pembangunan Manusia (IPM) maka PDRB tidak perlu diikut sertakan kedalam model Linear regression.
 
 ```{r}
@@ -277,7 +288,6 @@ perf.pred2 <- predict(lm.ipm2, testData)
 print(lm.ipm2)
 ```
 
-
 **Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi) revisi**
 
 ```{r eval=FALSE}
@@ -285,6 +295,10 @@ actuals.preds2 <- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pre
 cor(actuals.preds)
 ```
 
+    #            actuals predicteds
+    # actuals    1.000000   0.994194
+    # predicteds 0.994194   1.000000
+Dapat dilihat bahwa korelasi antara data prediksi dan data aktual sangat kuat
 ```{r}
 # Ringkasan model linear regression multivariabel dari "ipm2" 
 summary(lm.ipm2)
@@ -299,9 +313,9 @@ $$
 
 Dari output diatas dapat dilihat bahwa semua variabel prediktor sudah signifikan terhadap variabel respon.
 
-Dari output diatas juga dapat dilihat terdapat nilai *R-squared* dan *nilai Adjusted R-squared*. Nilai-nilai tersebut akan digunkan untuk mengetahui apakah model regresi yang dipakai cocok dengan data yang ada. Jika nilai R-squared dan nilai Adjusted R-squared besar (> 0.70) maka model tesebut dapat dikatakan baik.
+Dari output diatas juga dapat dilihat terdapat nilai **R-squared* dan *nilai Adjusted R-squared**. Nilai-nilai tersebut akan digunkan untuk mengetahui apakah model regresi yang dipakai cocok dengan data yang ada. Jika nilai R-squared dan nilai Adjusted R-squared besar (> 0.70) maka model tesebut dapat dikatakan baik.
 
-Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared = 0.9959 dan nilai Adjusted R-squared = 0.9943. Karena nilainya > 0.70, maka model tesebut dapat dikatakan baik.
+Berdasarkan hasil diatas, dapat diketahui bahwa nilai **R-squared = 0.9959** dan nilai **Adjusted R-squared = 0.9943**. Karena nilainya > 0.70, maka model tesebut dapat dikatakan baik.
 
 **Asumsi Klasik**
 

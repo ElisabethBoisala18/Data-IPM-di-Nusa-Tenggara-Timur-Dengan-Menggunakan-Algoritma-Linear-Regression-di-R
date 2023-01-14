@@ -325,7 +325,9 @@ data_ipm_ntt_2018 &lt;- select(data_ipm_ntt_2018, -c(&quot;IPM&quot;))</code></p
 <h2>Membangun Model Regresi Linear</h2>
 <div id="membuat-data-training-dan-testing" class="section level3">
 <h3>Membuat Data “Training” dan “Testing”</h3>
-<p>Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu “data training” dan “data testing.” Pembagian ini terdiri dari 70% training dan 30% testing. Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.</p>
+<p>Pada tahap ini data akan dibagi menjadi 2 jenis, yaitu “data training” dan “data testing.”</p>
+<p>Data training adalah data yang digunakan untuk membuat atau membentuk model. Sedangkan, Data Testing adalah data yang digunakan untuk mengetes model.</p>
+<p>Pembagian ini terdiri dari 70% training dan 30% testing.</p>
 <pre class="r"><code>set.seed(2)
 trainingRowIndex &lt;- sample(3:NROW(data_ipm_ntt_2018), 0.7*NROW(data_ipm_ntt_2018))
 trainingData &lt;- data_ipm_ntt_2018[trainingRowIndex, ]
@@ -357,6 +359,10 @@ print(lm.data_ipm_ntt_2018)</code></pre>
 <p><strong>Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)</strong></p>
 <pre class="r"><code>actuals.preds1 &lt;- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred1))
 cor(actuals.preds)</code></pre>
+<pre><code>#           actuals predicteds
+# actuals    1.000000   0.994194
+# predicteds 0.994194   1.000000</code></pre>
+<p>Dapat dilihat bahwa korelasi antara data prediksi dan data aktual sangat kuat.</p>
 <pre class="r"><code># Ringkasan model linear regression multivariabel
 
 summary(lm.data_ipm_ntt_2018)</code></pre>
@@ -460,6 +466,10 @@ print(lm.ipm2)</code></pre>
 <p><strong>Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi) revisi</strong></p>
 <pre class="r"><code>actuals.preds2 &lt;- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred2))
 cor(actuals.preds)</code></pre>
+<pre><code>#            actuals predicteds
+# actuals    1.000000   0.994194
+# predicteds 0.994194   1.000000</code></pre>
+<p>Dapat dilihat bahwa korelasi antara data prediksi dan data aktual sangat kuat</p>
 <pre class="r"><code># Ringkasan model linear regression multivariabel dari &quot;ipm2&quot; 
 summary(lm.ipm2)</code></pre>
 <pre><code>## 
@@ -491,8 +501,8 @@ summary(lm.ipm2)</code></pre>
 \hat{\mathrm{IPM}}=7.5919209+0.4506870 \mathrm{AHH}+ 0.6138238 \mathrm{HLS}+1.0589378 \mathrm{RLS}+ 0.0014204 \mathrm{PRPK}
 \]</span></p>
 <p>Dari output diatas dapat dilihat bahwa semua variabel prediktor sudah signifikan terhadap variabel respon.</p>
-<p>Dari output diatas juga dapat dilihat terdapat nilai <em>R-squared</em> dan <em>nilai Adjusted R-squared</em>. Nilai-nilai tersebut akan digunkan untuk mengetahui apakah model regresi yang dipakai cocok dengan data yang ada. Jika nilai R-squared dan nilai Adjusted R-squared besar (&gt; 0.70) maka model tesebut dapat dikatakan baik.</p>
-<p>Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared = 0.9959 dan nilai Adjusted R-squared = 0.9943. Karena nilainya &gt; 0.70, maka model tesebut dapat dikatakan baik.</p>
+<p>Dari output diatas juga dapat dilihat terdapat nilai **R-squared* dan *nilai Adjusted R-squared**. Nilai-nilai tersebut akan digunkan untuk mengetahui apakah model regresi yang dipakai cocok dengan data yang ada. Jika nilai R-squared dan nilai Adjusted R-squared besar (&gt; 0.70) maka model tesebut dapat dikatakan baik.</p>
+<p>Berdasarkan hasil diatas, dapat diketahui bahwa nilai <strong>R-squared = 0.9959</strong> dan nilai <strong>Adjusted R-squared = 0.9943</strong>. Karena nilainya &gt; 0.70, maka model tesebut dapat dikatakan baik.</p>
 <p><strong>Asumsi Klasik</strong></p>
 <ol style="list-style-type: decimal">
 <li><a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/">Multikolinearitas</a></li>
