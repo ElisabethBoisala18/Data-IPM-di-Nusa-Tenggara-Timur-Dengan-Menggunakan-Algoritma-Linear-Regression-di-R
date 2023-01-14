@@ -133,7 +133,11 @@
             <li><a href="#mengidentifikasi-atribut-dan-label">Mengidentifikasi Atribut dan Label</a></li>
             <li><a href="#membangun-model-regresi-linear">Membangun Model Regresi Linear</a></li>
             </ul></li>
-            <li><a href="#kesimpulan-dan-saran">KESIMPULAN DAN SARAN</a></li>
+            <li><a href="#penutup">PENUTUP</a>
+            <ul>
+            <li><a href="#kesimpulan">KESIMPULAN</a></li>
+            <li><a href="#saran">SARAN</a></li>
+            </ul></li>
             <li><a href="#referensi">REFERENSI</a></li>
             </ul>
           </div>
@@ -229,7 +233,7 @@ library(jtools)</code></pre>
 </div>
 <div id="menyiapkan-dataset" class="section level2">
 <h2>Menyiapkan Dataset</h2>
-<p>Dataset yang akan digunakan pada dataset ini adalah <a href="https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing">dataset IPM di NTT 2018</a></p>
+<p>Dataset yang akan digunakan pada dataset ini adalah <a href="https://drive.google.com/file/d/1Ho2pPgFqp2j8M4A21xY5ehhKPquSO_NJ/view?usp=sharing">dataset IPM di NTT 2018</a></p>
 <pre class="r"><code># Pastikan dataset yang ingin sudah diimport di R
 
 library(readr)</code></pre>
@@ -333,7 +337,7 @@ testData &lt;- data_ipm_ntt_2018[-trainingRowIndex,]</code></pre>
 <pre class="r"><code># Membuat model linear regression multivariable.
 
 lm.data_ipm_ntt_2018 &lt;- lm(IPM ~ AHH+HLS+RLS+PRPK+PDRB, data = trainingData)
-perf.pred &lt;- predict(lm.data_ipm_ntt_2018, testData)
+perf.pred1 &lt;- predict(lm.data_ipm_ntt_2018, testData)
 
 print(lm.data_ipm_ntt_2018)</code></pre>
 <pre><code>## 
@@ -350,12 +354,9 @@ print(lm.data_ipm_ntt_2018)</code></pre>
 </div>
 <div id="actual-vs-prediction" class="section level3">
 <h3>Actual vs Prediction</h3>
-<p>Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)</p>
-<pre class="r"><code>actuals.preds &lt;- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred))
+<p><strong>Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)</strong></p>
+<pre class="r"><code>actuals.preds1 &lt;- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred1))
 cor(actuals.preds)</code></pre>
-<pre><code>##             actuals predicteds
-## actuals    1.000000   0.994194
-## predicteds 0.994194   1.000000</code></pre>
 <pre class="r"><code># Ringkasan model linear regression multivariabel
 
 summary(lm.data_ipm_ntt_2018)</code></pre>
@@ -446,7 +447,7 @@ ipm2</code></pre>
 <pre class="r"><code># Membuat model linear regression multivariabel dari &quot;ipm2&quot; 
 
 lm.ipm2 &lt;- lm(IPM ~ AHH+HLS+RLS+PRPK, data = trainingData)
-perf.pred &lt;- predict(lm.ipm2, testData)
+perf.pred2 &lt;- predict(lm.ipm2, testData)
 
 print(lm.ipm2)</code></pre>
 <pre><code>## 
@@ -456,6 +457,9 @@ print(lm.ipm2)</code></pre>
 ## Coefficients:
 ## (Intercept)          AHH          HLS          RLS         PRPK  
 ##     7.59192      0.45069      0.61382      1.05894      0.00142</code></pre>
+<p><strong>Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi) revisi</strong></p>
+<pre class="r"><code>actuals.preds2 &lt;- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred2))
+cor(actuals.preds)</code></pre>
 <pre class="r"><code># Ringkasan model linear regression multivariabel dari &quot;ipm2&quot; 
 summary(lm.ipm2)</code></pre>
 <pre><code>## 
@@ -491,7 +495,7 @@ summary(lm.ipm2)</code></pre>
 <p>Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared = 0.9959 dan nilai Adjusted R-squared = 0.9943. Karena nilainya &gt; 0.70, maka model tesebut dapat dikatakan baik.</p>
 <p><strong>Asumsi Klasik</strong></p>
 <ol style="list-style-type: decimal">
-<li><a href="http://www.spssindonesia.com/2014/02/uji-multikolonieritas-dengan-melihat.html">Multikolinearitas</a></li>
+<li><a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/">Multikolinearitas</a></li>
 </ol>
 <pre class="r"><code># Sebelum mendeteksi multikolinearitas diperlukan packages &quot;car&quot;
 
@@ -548,6 +552,9 @@ library(lmtest)</code></pre>
 ## data:  lm.ipm2
 ## BP = 7.1248, df = 4, p-value = 0.1294</code></pre>
 <p>Berdasarkan uji bp-test, dapat disimpulkan bahwa nilai p-value ( 0.1294) &gt; α(0.05) maka dapat disimpulkan bahwa tidak terjadi heteroskedastisitas.</p>
+<p><strong>Plot</strong></p>
+<pre class="r"><code>library(plotly)
+library(ggplot2)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p><a href="https://www.statistikian.com/2017/01/uji-autokorelasi-durbin-watson-spss.html">Autokorelasi</a></p>
 <p>Selanjutnya mengecek apakah ada Heteroskedastisitas atau tidak pada data (analisis regresi) dengan menggunakan uji Durbin Watson</p></li>
@@ -575,18 +582,69 @@ library(lmtest)</code></pre>
 ##     7.59192      0.45069      0.61382      1.05894      0.00142</code></pre>
 <p><span class="math display">\[
 {\mathrm{IPMi}}=7.59192+0.45069 \mathrm{AHH}+ 0.61382\mathrm{HLS}+1.05894 \mathrm{RLS}+ 0.00142 \mathrm{PRPK} +\mathcal{Ei} \]</span> <span class="math display">\[({i=1,2,3, \ldots, 22})
-\]</span> ### Evaluasi Model</p>
+\]</span></p>
+</div>
+<div id="evaluasi-model" class="section level3">
+<h3>Evaluasi Model</h3>
 <p>Mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evluasi lagi berdasarkan nilai eror dan AIC.</p>
 <p><em>Dilihat Berdasarkan Erornya</em></p>
+<pre class="r"><code># Syarat pada Min Max Accuracy adalah semakin besar nilainya artinya  semakin baik.
+
+min_max_accuracy &lt;- mean(apply(actuals.preds2 , 1, min) / apply(actuals.preds2, 1, max))
+min_max_accuracy</code></pre>
+<pre><code># [1] 0.9957979</code></pre>
+<p>Didapatkan nilai 99% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan sangat Baik.</p>
+<pre class="r"><code># Syarat pada MAPE (Mean Absolut Presentase Eror) adalah Semakin rendah nilai MAPE maka semakin baik modelnya
+
+mape &lt;- mean(abs((actuals.preds2$predicteds - actuals.preds2$actuals))/actuals.preds2$actuals)
+mape</code></pre>
+<pre><code># [1] 0.004232751</code></pre>
+<p>Didapatkan nilai 0.00% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan sangat baik.</p>
+<p><strong>Dilihat berdasarkan AIC (Akaike Information Criterion)</strong></p>
+<pre class="r"><code># Syarat pada AIC (Akaike Information Criterion) adalah Semakin rendah niali AIC maka semakin baik modelnya
+
+AIC(lm.ipm2)</code></pre>
+<pre><code>## [1] 19.19415</code></pre>
+<p>Didapatkan nilai 19.19415. Karena nilai AIC-nya rendah maka dapat dikatakan bahwa model yang dihasilkan sangat baik.</p>
 </div>
 </div>
 </div>
-<div id="kesimpulan-dan-saran" class="section level1">
-<h1>KESIMPULAN DAN SARAN</h1>
+<div id="penutup" class="section level1">
+<h1>PENUTUP</h1>
+<div id="kesimpulan" class="section level2">
+<h2>KESIMPULAN</h2>
+<p>Berdasarkan Hasil analisis diatas dapat disimpulkan bahwa Angka Harapan Hidup (AHH), Harapan Lama Sekolah (HLS),Rata-rata Lama Sekolah (RLS), dan Pendapatan rata-rata Per kapita (PRPK) memiliki pengaruh yang signifikan terhadap Indeks Pembangunan Manusia (IPM). Yang artinya model yang dihasilkan dapat dipercaya dan digunakan untuk memprediksi Indeks Pembangunan Manusia (IPM) dimasa yang akan datang.</p>
+</div>
+<div id="saran" class="section level2">
+<h2>SARAN</h2>
+<p>Sebaiknya pemerintah daerah NTT perlu memperhatikan hal-hal berikut ini :</p>
+<p>o Meningkatkan derajat kesehatan dan disertai juga dengan program pembangunan kesehatan dan program sosial lainnya termasuk kesehatan lingkungan, kecukupan gizi dan kalori termasuk program pemberantasan kemiskinan.</p>
+<p>o Meningkatkan pembangunan sistem pendidikan di berbagai jenjang.</p>
+<p>o Meningkat kualitas pedididikan masyarakat di wilayah-wilayah yang ada di Nusa Tenggara Timur (NTT).</p>
+<p>o Meningkatkan kesejahteran masyarakatnya dibidang ekonomi</p>
+<p>dengan memperhatikan hal-hal tersebut maka misi pemerindah dalam upaya membangun kualitas hidup manusia (masyarakat/penduduk) bisa berjalan dengan lancar (berhasil)</p>
+</div>
 </div>
 <div id="referensi" class="section level1">
 <h1>REFERENSI</h1>
-<p><a href="https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu" class="uri">https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu</a> <a href="https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html" class="uri">https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html</a> <a href="https://rpubs.com/Raissaloretta/ARGBRG16" class="uri">https://rpubs.com/Raissaloretta/ARGBRG16</a> <a href="http://bit.ly/3GGyVfA" class="uri">http://bit.ly/3GGyVfA</a> <a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/" class="uri">https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/</a></p>
+<ol style="list-style-type: decimal">
+<li><a href="https://rpubs.com/avosta/475756" class="uri">https://rpubs.com/avosta/475756</a></li>
+<li><a href="https://rpubs.com/Raissaloretta/ARGBRG16" class="uri">https://rpubs.com/Raissaloretta/ARGBRG16</a></li>
+<li><a href="https://github.com/ElisabethBoisala18/Data-IPM-di-Nusa-Tenggara-Timur-Dengan-Menggunakan-Algoritma-Linear-Regression-di-R" class="uri">https://github.com/ElisabethBoisala18/Data-IPM-di-Nusa-Tenggara-Timur-Dengan-Menggunakan-Algoritma-Linear-Regression-di-R</a></li>
+<li><a href="https://drive.google.com/file/d/1Ho2pPgFqp2j8M4A21xY5ehhKPquSO_NJ/view?usp=sharing" class="uri">https://drive.google.com/file/d/1Ho2pPgFqp2j8M4A21xY5ehhKPquSO_NJ/view?usp=sharing</a></li>
+<li><a href="https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu" class="uri">https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu</a></li>
+<li><a href="https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html" class="uri">https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html</a></li>
+<li><a href="http://bit.ly/3GGyVfA" class="uri">http://bit.ly/3GGyVfA</a></li>
+<li><a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/" class="uri">https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/</a></li>
+<li><a href="https://accounting.binus.ac.id/2021/08/06/memahami-uji-multikolinearitas-dalam-model-regresi/" class="uri">https://accounting.binus.ac.id/2021/08/06/memahami-uji-multikolinearitas-dalam-model-regresi/</a></li>
+<li><a href="http://r-statistics.co/Linear-Regression.html" class="uri">http://r-statistics.co/Linear-Regression.html</a></li>
+<li><a href="https://id.eferrit.com/pengantar-akaike-information-criterion-aic/" class="uri">https://id.eferrit.com/pengantar-akaike-information-criterion-aic/</a></li>
+<li><a href="https://www.rdocumentation.org/packages/dplyr/versions/1.0.10" class="uri">https://www.rdocumentation.org/packages/dplyr/versions/1.0.10</a></li>
+<li><a href="https://cran.r-project.org/web/packages/jtools/index.html" class="uri">https://cran.r-project.org/web/packages/jtools/index.html</a></li>
+<li><a href="http://www.spssindonesia.com/2014/02/uji-multikolonieritas-dengan-melihat.html" class="uri">http://www.spssindonesia.com/2014/02/uji-multikolonieritas-dengan-melihat.html</a></li>
+<li><a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/" class="uri">https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/</a></li>
+<li><a href="https://accounting.binus.ac.id/2021/08/06/memahami-uji-heteroskedastisitas-dalam-model-regresi/" class="uri">https://accounting.binus.ac.id/2021/08/06/memahami-uji-heteroskedastisitas-dalam-model-regresi/</a></li>
+</ol>
 </div>
 </div>
 

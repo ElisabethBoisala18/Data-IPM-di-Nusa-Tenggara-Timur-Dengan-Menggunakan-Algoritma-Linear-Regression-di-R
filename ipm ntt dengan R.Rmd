@@ -113,7 +113,7 @@ Setelah sudah menginstal Packages "dplyr dan jtools", berikutnya siapkan dataset
 
 ## Menyiapkan Dataset
 
-Dataset yang akan digunakan pada dataset ini adalah [dataset IPM di NTT 2018](https://docs.google.com/spreadsheets/d/1IPSZbLg-XfHrXLGgtkaO7yoLE-EJ7O0eB0PLzzlSDwk/edit?usp=sharing)
+Dataset yang akan digunakan pada dataset ini adalah [dataset IPM di NTT 2018](https://drive.google.com/file/d/1Ho2pPgFqp2j8M4A21xY5ehhKPquSO_NJ/view?usp=sharing)
 
 ```{r}
 # Pastikan dataset yang ingin sudah diimport di R
@@ -206,12 +206,11 @@ AHH : 0.4669211, HLS : 0.8108944, RLS : 1.0406340, PRPK :0.0015438, PDRB : -0.00
 
 ### Actual vs Prediction
 
-Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)
-```{r}
+**Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)**
+```{r eval=FALSE}
 actuals.preds1 <- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred1))
 cor(actuals.preds)
 ```
-
 ```{r}
 # Ringkasan model linear regression multivariabel
 
@@ -277,8 +276,11 @@ perf.pred2 <- predict(lm.ipm2, testData)
 
 print(lm.ipm2)
 ```
-Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi) revisi
-```{r}
+
+
+**Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi) revisi**
+
+```{r eval=FALSE}
 actuals.preds2 <- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred2))
 cor(actuals.preds)
 ```
@@ -303,7 +305,7 @@ Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared = 0.9959 dan nil
 
 **Asumsi Klasik**
 
-1. [Multikolinearitas](http://www.spssindonesia.com/2014/02/uji-multikolonieritas-dengan-melihat.html)
+1. [Multikolinearitas](https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/)
 
 ```{r}
 # Sebelum mendeteksi multikolinearitas diperlukan packages "car"
@@ -356,6 +358,12 @@ bptest(lm.ipm2)
 
 Berdasarkan uji bp-test, dapat disimpulkan bahwa nilai p-value ( 0.1294) > α(0.05) maka dapat disimpulkan bahwa tidak terjadi heteroskedastisitas.
 
+**Plot**
+```{r eval=FALSE}
+library(plotly)
+library(ggplot2)
+```
+
 4. [Autokorelasi](https://www.statistikian.com/2017/01/uji-autokorelasi-durbin-watson-spss.html)
 
     Selanjutnya mengecek apakah ada Heteroskedastisitas atau tidak pada data (analisis regresi) dengan menggunakan uji Durbin Watson
@@ -380,17 +388,76 @@ print(lm.ipm2)
 $$
 {\mathrm{IPMi}}=7.59192+0.45069 \mathrm{AHH}+ 0.61382\mathrm{HLS}+1.05894 \mathrm{RLS}+ 0.00142 \mathrm{PRPK} +\mathcal{Ei} $$ $$({i=1,2,3, \ldots, 22})
 $$
+
 ### Evaluasi Model
 
  Mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evluasi lagi berdasarkan nilai eror dan AIC.
  
   *Dilihat Berdasarkan Erornya*
+```{r eval=FALSE}
+# Syarat pada Min Max Accuracy adalah semakin besar nilainya artinya  semakin baik.
 
+min_max_accuracy <- mean(apply(actuals.preds2 , 1, min) / apply(actuals.preds2, 1, max))
+min_max_accuracy
+```
+
+    # [1] 0.9957979
+
+ Didapatkan nilai 99% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan sangat Baik.
+ 
+```{r eval=FALSE}
+
+# Syarat pada MAPE (Mean Absolut Presentase Eror) adalah Semakin rendah nilai MAPE maka semakin baik modelnya
+
+mape <- mean(abs((actuals.preds2$predicteds - actuals.preds2$actuals))/actuals.preds2$actuals)
+mape
+```
+    # [1] 0.004232751
+
+Didapatkan nilai 0.00% pada hasil akurasi modelnya. Ini artinya model yang dihasilkan sangat baik.  
+
+   **Dilihat berdasarkan AIC (Akaike Information Criterion)**
+```{r}
+# Syarat pada AIC (Akaike Information Criterion) adalah Semakin rendah niali AIC maka semakin baik modelnya
+
+AIC(lm.ipm2)
+```
+Didapatkan nilai 19.19415. Karena nilai AIC-nya rendah maka dapat dikatakan bahwa model yang dihasilkan sangat baik.    
+
+# PENUTUP 
+## KESIMPULAN
+
+Berdasarkan Hasil analisis diatas dapat disimpulkan bahwa Angka Harapan Hidup (AHH), Harapan Lama Sekolah (HLS),Rata-rata Lama Sekolah (RLS), dan Pendapatan rata-rata Per kapita (PRPK) memiliki pengaruh yang signifikan terhadap Indeks Pembangunan Manusia (IPM). Yang artinya model yang dihasilkan dapat dipercaya dan digunakan untuk memprediksi Indeks Pembangunan Manusia (IPM) dimasa yang akan datang.
+
+## SARAN
+
+Sebaiknya pemerintah daerah NTT perlu memperhatikan hal-hal berikut ini :
+
+  o Meningkatkan derajat kesehatan dan disertai juga dengan program pembangunan kesehatan dan program sosial lainnya termasuk kesehatan lingkungan, kecukupan gizi dan kalori termasuk program pemberantasan kemiskinan.
   
-    
+  o Meningkatkan pembangunan sistem pendidikan di berbagai jenjang.
+  
+  o Meningkat kualitas pedididikan masyarakat di wilayah-wilayah yang ada di Nusa Tenggara Timur (NTT).
+  
+  o Meningkatkan kesejahteran masyarakatnya dibidang ekonomi
 
-# KESIMPULAN DAN SARAN
-
+dengan memperhatikan hal-hal tersebut maka misi pemerindah dalam upaya membangun kualitas hidup manusia (masyarakat/penduduk) bisa berjalan dengan lancar (berhasil)
+  
 # REFERENSI
 
-<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html> <https://rpubs.com/Raissaloretta/ARGBRG16> <http://bit.ly/3GGyVfA> <https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/>
+1. <https://rpubs.com/avosta/475756>
+2. <https://rpubs.com/Raissaloretta/ARGBRG16>
+3. <https://github.com/ElisabethBoisala18/Data-IPM-di-Nusa-Tenggara-Timur-Dengan-Menggunakan-Algoritma-Linear-Regression-di-R>
+4. <https://drive.google.com/file/d/1Ho2pPgFqp2j8M4A21xY5ehhKPquSO_NJ/view?usp=sharing>
+5. <https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu>
+6. <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html> 
+7. <http://bit.ly/3GGyVfA> 
+8. <https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/>
+9. <https://accounting.binus.ac.id/2021/08/06/memahami-uji-multikolinearitas-dalam-model-regresi/>
+10. <http://r-statistics.co/Linear-Regression.html>
+11. <https://id.eferrit.com/pengantar-akaike-information-criterion-aic/>
+12. <https://www.rdocumentation.org/packages/dplyr/versions/1.0.10>
+13. <https://cran.r-project.org/web/packages/jtools/index.html>
+14. <http://www.spssindonesia.com/2014/02/uji-multikolonieritas-dengan-melihat.html>
+15. <https://accounting.binus.ac.id/2021/08/12/memahami-uji-f-uji-simultan-dalam-regresi-linear/>
+16. <https://accounting.binus.ac.id/2021/08/06/memahami-uji-heteroskedastisitas-dalam-model-regresi/>
