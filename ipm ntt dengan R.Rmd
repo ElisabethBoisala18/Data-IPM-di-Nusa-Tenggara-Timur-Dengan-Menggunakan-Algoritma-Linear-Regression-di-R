@@ -372,12 +372,6 @@ bptest(lm.ipm2)
 
 Berdasarkan uji bp-test, dapat disimpulkan bahwa nilai p-value ( 0.1294) > α(0.05) maka dapat disimpulkan bahwa tidak terjadi heteroskedastisitas.
 
-**Plot**
-```{r eval=FALSE}
-library(plotly)
-library(ggplot2)
-```
-
 4. [Autokorelasi](https://www.statistikian.com/2017/01/uji-autokorelasi-durbin-watson-spss.html)
 
     Selanjutnya mengecek apakah ada Heteroskedastisitas atau tidak pada data (analisis regresi) dengan menggunakan uji Durbin Watson
