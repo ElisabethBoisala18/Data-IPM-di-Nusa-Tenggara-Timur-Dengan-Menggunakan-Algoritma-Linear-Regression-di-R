@@ -42,7 +42,7 @@ Sedangkan *menurut Sani Susanto (2010, 33)*, Regresi linear merupakan satu cara 
 
 Berdasarkan pengertin diatas dapat disimpulkan bahwa, *Linear Regression adalah metode statistika yang digunakan untuk mempelajari hubungan antara variabel atau membentuk model, yang nantinya model tersebut akan digunakan untuk memprediksi masa depan.Walaupun prediksi yang dihasilkan tidak seakurat teknik yang lebih modern, tetapi liner regression cukup simpel dan mudah untuk dipahami.*
 
-## TAHAPAN ALGORITMA LINEAR REGRESSION
+## Tahapan Algoritma Linear Regression
 
 Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
@@ -54,7 +54,50 @@ Algoritma linear regression memiliki beberapa tahapan, yaitu :
 
 4.  Mengevaluasi Model
 
+## Asumsi Klasik
+
+Uji asumsi klasik adalah uji yang dilakukan sebelum pemrosesan data regresi (baik sederhana atau berganda) agar persamaan yang dihasilkan memenuhi kaidah best linear unbiased estimator (BLUE). Jika uji asumsi klasik tidak dilakukan sebelum pemrosesan data, persamaan yang dihasilkan diragukan kemampuannya dalam menghasilkan prediksi yang akurat. Terdapat 4 uji dalam asumsi klasik, diantaranya :
+
+1.  Asumsi Multikolinieritas
+
+    Hubungan linear antar variabel bebas disebut multikolinieritas. Hubungan tersebut tercipta karena adanya korelasi antar variabel bebas, dimana setiap ada perubahan pada suatu variabel bebas akan mengakibatkan variabel bebas lainnya berubah. Oleh karena itu, dalam membuat regresi berganda variabel bebas yang baik adalah variabel bebas yang mempunyai hubungan dengan variabel terikat tetapi tidak mempunyai hubungan dengan variabel bebas lainnya.
+
+    Untuk mendeteksi keberadaan multikolinieritas dapat dilakukan dengan melihat nilai Tolerance dan Variance Inflation Factor (VIF) pada model regresi. Kriteria pengambilan keputusan terkait uji multikolinearitas adalah sebagai berikut (Ghozali, 2016) :
+
+    o Jika nilai VIF \< 10 atau nilai Tolerance > 0,01, maka dinyatakan tidak terjadi multikolinearitas.
+
+    0 Jika nilai VIF > 10 atau nilai Tolerance \< 0,01, maka dinyatakan terjadi multikolinearitas.
+
+    o Jika koefisien korelasi masing-masing variabel bebas > 0,8 maka terjadi multikolinearitas. Tetapi jika koefisien korelasi masing-masing variabel bebas \< 0,8 maka tidak terjadi multikolinearitas.
+
+2.  Uji Normalitas
+
+    Dalam melakukan perhitungan statistik, tentu data yang kita miliki harus benar-benar mewakili populasi, sehingga hasil penelitian yang dibangun bisa digeneralisasikan pada populasi, dan sifat dari karakteristik populasi adalah berdsitribusi normal. Suatu data dapat diasumsikan berdistribusi normal Jika nilai p-value > 0.05 (alpha atau taraf nyata)
+
+    Untuk mendeteksi apakah data normal atau tidak, bisa menggunakan pengujian yaitu dengan Uji Chi-square, Uji Kolmogorov Smirnov, Uji Liliefors dan Uji Shapiro Wilk.
+
+3.  Uji Heteroskedastisitas
+
+    Homoskdeastisitas memiliki kebalikan yaitu Heteroskedastisitas. Heteroskedastisitas adalah adanya ketidaksamaan varian dari residual untuk semua pengamatan pada model regresi.
+
+    Biasanya heteroskedastisitas terjadi pada data cross section yaitu data yang diambil pada satu waktu, yang mewakili berbagai ukuran (kecil, sedang, dan besar). Oleh karena itu, cara pendeteksian adanya heterosdekastisitas yang paling mudah adalah melihat grafik atau gambar. Data dapat diasumsikan tidak terkena Heteroskedastisitas Jika nilai p-value > 0.05 (alpha atau taraf nyata).
+
+    Adapun cara lain untuk mendeteksi ada tidaknya heteroskedastitas yaitu dengan melakukan beberapa pengujian, diantaranya adalah Uji Korelasi Spearman, Uji Park, Uji White.
+
+4.  Uji Autokorelasi
+
+    Autokorelasi atau korelasi serial merupakan suatu kondisi dimana komponen variabel random error berkorelasi berdasarkan urutan waktu (dalam data time series) atau urutan ruang (pada data cross section). Untuk mendeteksi autokorelasi, dapat digunakan uji Durbin Watson. Asumsi Uji Durbin Watson antara lain :
+
+    o Model regresi mengandung komponen intersep
+
+    o Variabel penjelas/independen bersifat non-stochastic/fixed dalam pengambilan sampel yang berulang Digunakan hanya untuk menguji model eror autoregresif orde pertama. Oleh karena itu, tidak dapat digunakan untuk menguji model autoregresif dengan orde tinggi.
+
+    o Komponen eror diasumsikan berdistribusi normal.
+
+    o Model regresi tidak mengandung variabel independen yang terlambat atau tertinggal (lag) varaibel dependen, yang mana akan terjadi ketika melakukan pendugaan sebuah model dinamis.
+
 # PEMBAHASAN
+
 # Penerapan Algoritma Linear pada data IPM di NTT 2018
 
 ## Library
@@ -139,8 +182,6 @@ trainingData <- data_ipm_ntt_2018[trainingRowIndex, ]
 testData <- data_ipm_ntt_2018[-trainingRowIndex,]
 ```
 
-### Plot
-
 ### Mencari intecerp dan slope
 
 Sebelum membuat model kita harus mencari nilai intercept dan slope (β) terlebih dahulu.
@@ -149,22 +190,27 @@ Sebelum membuat model kita harus mencari nilai intercept dan slope (β) terlebih
 # Membuat model linear regression multivariable.
 
 lm.data_ipm_ntt_2018 <- lm(IPM ~ AHH+HLS+RLS+PRPK+PDRB, data = trainingData)
-perf.pred <- predict(lm.data_ipm_ntt_2018, testData)
+perf.pred1 <- predict(lm.data_ipm_ntt_2018, testData)
 
 print(lm.data_ipm_ntt_2018)
 ```
 
 **Berdasarkan output di atas, dapat dilihat bahwa bagian 'Koefisien' memiliki enam komponen:**
 
-  **Intercept** : 3.5527863              
+**Intercept** : 3.5527863
 
-  **Slope (β)** :
+**Slope (β)** :
 
-  AHH   : 0.4669211, 
-  HLS   :  0.8108944, 
-  RLS   : 1.0406340,
-  PRPK  :0.0015438,
-  PDRB  : -0.0001155
+AHH : 0.4669211, HLS : 0.8108944, RLS : 1.0406340, PRPK :0.0015438, PDRB : -0.0001155
+
+
+### Actual vs Prediction
+
+Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)
+```{r}
+actuals.preds1 <- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred1))
+cor(actuals.preds)
+```
 
 ```{r}
 # Ringkasan model linear regression multivariabel
@@ -172,17 +218,16 @@ print(lm.data_ipm_ntt_2018)
 summary(lm.data_ipm_ntt_2018)
 ```
 
+Berdasarkan hasil output diatas, dapat dilihat bahwa Pendugaan parameter dari Indeks Pembangunan Manusia (IPM) yaitu :
+
+$$
+\hat{\mathrm{IPM}}=3.553+0.4669 \mathrm{AHH}+0.8109 \mathrm{HLS}+1.041 \mathrm{RLS}+0.001544 \mathrm{PRPK}+(-0,0001156 \mathrm{PDRB})
+$$
+
+
 ### Analisis
 
 Perhatikan hasil output diatas. Jika **nilai p-value** dan **Pr(>\|t\|)** kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika **nilai p-value** dan **Pr(>\|t\|)** lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.
-
-Berdasarkan hasil output diatas, dapat dilihat bahwa :
-
-Pendugaan parameter Indeks Pembangunan Manusia (IPM) yaitu :
-
-$$
-\hat{\mathrm{Y}}=3.553+0.4669 \mathrm{AHH}+0.8109 \mathrm{HLS}+1.041 \mathrm{RLS}+0.001544 \mathrm{PRPK}+(-0,0001156 \mathrm{PDRB})
-$$
 
 [**Uji Simultan**](http://bit.ly/3GGyVfA)
 
@@ -216,22 +261,136 @@ p-value = 6.307e-11. Karena nilai p-value (6.307e-11) \< 0.05 Maka dapat disimpu
 \hline
 \end{array}
 ```
+Karena PDRB tidak berpengaruh secara signifikan terhadap Indeks Pembangunan Manusia (IPM) maka PDRB tidak perlu diikut sertakan kedalam model Linear regression.
+
+```{r}
+# Menghapus kolom variabel PDRB
+ipm2 <-data_ipm_ntt_2018[-6]
+ipm2
+```
+
+```{r}
+# Membuat model linear regression multivariabel dari "ipm2" 
+
+lm.ipm2 <- lm(IPM ~ AHH+HLS+RLS+PRPK, data = trainingData)
+perf.pred2 <- predict(lm.ipm2, testData)
+
+print(lm.ipm2)
+```
+Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi) revisi
+```{r}
+actuals.preds2 <- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred2))
+cor(actuals.preds)
+```
+
+```{r}
+# Ringkasan model linear regression multivariabel dari "ipm2" 
+summary(lm.ipm2)
+```
+### Analisis
+
+Berdasarkan hasil output diatas, dapat dilihat bahwa Pendugaan parameter dari Indeks Pembangunan Manusia (IPM) yang baru yaitu :
+
+$$
+\hat{\mathrm{IPM}}=7.5919209+0.4506870 \mathrm{AHH}+ 0.6138238 \mathrm{HLS}+1.0589378 \mathrm{RLS}+ 0.0014204 \mathrm{PRPK}
+$$
+
+Dari output diatas dapat dilihat bahwa semua variabel prediktor sudah signifikan terhadap variabel respon.
+
+Dari output diatas juga dapat dilihat terdapat nilai *R-squared* dan *nilai Adjusted R-squared*. Nilai-nilai tersebut akan digunkan untuk mengetahui apakah model regresi yang dipakai cocok dengan data yang ada. Jika nilai R-squared dan nilai Adjusted R-squared besar (> 0.70) maka model tesebut dapat dikatakan baik.
+
+Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared = 0.9959 dan nilai Adjusted R-squared = 0.9943. Karena nilainya > 0.70, maka model tesebut dapat dikatakan baik.
+
+**Asumsi Klasik**
+
+1. [Multikolinearitas](http://www.spssindonesia.com/2014/02/uji-multikolonieritas-dengan-melihat.html)
+
+```{r}
+# Sebelum mendeteksi multikolinearitas diperlukan packages "car"
+
+library(car)
+```
 
 ```{r}
 # Pendeteksian multikolinearitas
 
-library(car)
-vif(lm.data_ipm_ntt_2018)
+vif(lm.ipm2)
+```
+
+Karena nilai VIF dari tiap variabel kurang dari 10, maka tidak terjadi multikolinieritas. Artinya, asumsi multikolinieritas terpenuhi.
+
+2. [Normalitas](https://www.statistikian.com/2013/01/uji-normalitas.html)
+
+```{r eval=FALSE}
+# Untuk melakukan uji Normalitas dibutuhkan package tseries
+
+library(tseries)
+```
+
+```{r}
+# mencari galat 
+sisa <- residuals (lm.ipm2)
+sisa
+```
+
+Selanjutnya mengecek apakah data berdistribusi normal atau tidak dengan menggunakan [Uji Shapiro](https://www.projectpro.io/recipes/what-is-shapiro-test-perform-it-r)
+
+```{r}
+# Mengecek Normalitas
+shapiro.test(sisa)
+```
+Berdasarkan uji shapiro wilk diatas, diperoleh nilai p-value (0.6327) \> α(0.05) maka dapat disimpulkan bahwa galat menyebar secara normal, artinya uji asumsi normalitas terpenuhi.
+
+3.[Heteroskedastisitas](https://www.statistikian.com/2013/01/uji-heteroskedastisitas.html)
+
+```{r}
+# Untuk mendeteksi Heteroskedastisitas diperlukan packages lmtest
+library(lmtest)
+```
+
+Selanjutnya mengecek apakah ada Heteroskedastisitas atau tidak pada data (analisis regresi) dengan menggunakan [uji Breusch-Pagan](https://www.statology.org/breusch-pagan-test-r/)
+
+```{r}
+bptest(lm.ipm2)
+```
+
+Berdasarkan uji bp-test, dapat disimpulkan bahwa nilai p-value ( 0.1294) > α(0.05) maka dapat disimpulkan bahwa tidak terjadi heteroskedastisitas.
+
+4. [Autokorelasi](https://www.statistikian.com/2017/01/uji-autokorelasi-durbin-watson-spss.html)
+
+    Selanjutnya mengecek apakah ada Heteroskedastisitas atau tidak pada data (analisis regresi) dengan menggunakan uji Durbin Watson
+
+```{r}
+dwtest(lm.ipm2)
+```
+
+Berdasarkan uji Durbin Watson, nilai p-value(0.8309) > α(0.05), maka dapat disimpulkan bahwa tidak terjadi kasus autokorelasi pada galat.
+
+### Membuat Model
+
+Karena data sudah diuji menggunakan asumsi klasik (data berdistribusi normal dan tidak terdapat Multikolinearitas, Heteroskedastisitas, dan Autokorelasi), maka persamaan yang dihasilkan dari data IPM di NTT 2018 memenuhi kaidah best linear unbiased estimator (BLUE). 
+
+Berikut adalah persamaannya :
+
+```{r}
+print(lm.ipm2)
 ```
 
 
-### Membuat Model
+$$
+{\mathrm{IPMi}}=7.59192+0.45069 \mathrm{AHH}+ 0.61382\mathrm{HLS}+1.05894 \mathrm{RLS}+ 0.00142 \mathrm{PRPK} +\mathcal{Ei} $$ $$({i=1,2,3, \ldots, 22})
+$$
+### Evaluasi Model
+
+ Mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evluasi lagi berdasarkan nilai eror dan AIC.
+ 
+  *Dilihat Berdasarkan Erornya*
+
+  
+    
 
 # KESIMPULAN DAN SARAN
 
 # REFERENSI
 
-<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html>
-<https://rpubs.com/Raissaloretta/ARGBRG16> 
-<http://bit.ly/3GGyVfA>
-<https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/>
+<https://bigalpha.id/news/apa-itu-indeks-pembangunan-manusia-ipm-ini-fakta-yang-perlu-kamu-tahu> <https://www.bps.go.id/subject/26/indeks-pembangunan-manusia.html> <https://rpubs.com/Raissaloretta/ARGBRG16> <http://bit.ly/3GGyVfA> <https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/>

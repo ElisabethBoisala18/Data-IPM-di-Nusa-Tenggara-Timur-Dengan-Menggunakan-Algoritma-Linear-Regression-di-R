@@ -7,7 +7,7 @@
 
         <meta name="author" content="Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah" />
     
-        <meta name="date" content="2023-01-13" />
+        <meta name="date" content="2023-01-14" />
     
     <title>Analisis data IPM menggunakan Algoritma Linear Regression di R</title>
 
@@ -122,7 +122,8 @@
             <ul>
             <li><a href="#indeks-pembangunan-manusia-ipm">Indeks Pembangunan Manusia (IPM)</a></li>
             <li><a href="#linear-regression">Linear Regression</a></li>
-            <li><a href="#tahapan-algoritma-linear-regression">TAHAPAN ALGORITMA LINEAR REGRESSION</a></li>
+            <li><a href="#tahapan-algoritma-linear-regression">Tahapan Algoritma Linear Regression</a></li>
+            <li><a href="#asumsi-klasik">Asumsi Klasik</a></li>
             </ul></li>
             <li><a href="#pembahasan">PEMBAHASAN</a></li>
             <li><a href="#penerapan-algoritma-linear-pada-data-ipm-di-ntt-2018">Penerapan Algoritma Linear pada data IPM di NTT 2018</a>
@@ -148,7 +149,7 @@
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-13</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-14</p>
            
 
    
@@ -179,13 +180,38 @@ text-align: justify}
 <p>Berdasarkan pengertin diatas dapat disimpulkan bahwa, <em>Linear Regression adalah metode statistika yang digunakan untuk mempelajari hubungan antara variabel atau membentuk model, yang nantinya model tersebut akan digunakan untuk memprediksi masa depan.Walaupun prediksi yang dihasilkan tidak seakurat teknik yang lebih modern, tetapi liner regression cukup simpel dan mudah untuk dipahami.</em></p>
 </div>
 <div id="tahapan-algoritma-linear-regression" class="section level2">
-<h2>TAHAPAN ALGORITMA LINEAR REGRESSION</h2>
+<h2>Tahapan Algoritma Linear Regression</h2>
 <p>Algoritma linear regression memiliki beberapa tahapan, yaitu :</p>
 <ol style="list-style-type: decimal">
 <li><p>Menyiapkan data</p></li>
 <li><p>Mengidentifikasi Atribut dan label</p></li>
 <li><p>Membangun model Linear Regresi</p></li>
 <li><p>Mengevaluasi Model</p></li>
+</ol>
+</div>
+<div id="asumsi-klasik" class="section level2">
+<h2>Asumsi Klasik</h2>
+<p>Uji asumsi klasik adalah uji yang dilakukan sebelum pemrosesan data regresi (baik sederhana atau berganda) agar persamaan yang dihasilkan memenuhi kaidah best linear unbiased estimator (BLUE). Jika uji asumsi klasik tidak dilakukan sebelum pemrosesan data, persamaan yang dihasilkan diragukan kemampuannya dalam menghasilkan prediksi yang akurat. Terdapat 4 uji dalam asumsi klasik, diantaranya :</p>
+<ol style="list-style-type: decimal">
+<li><p>Asumsi Multikolinieritas</p>
+<p>Hubungan linear antar variabel bebas disebut multikolinieritas. Hubungan tersebut tercipta karena adanya korelasi antar variabel bebas, dimana setiap ada perubahan pada suatu variabel bebas akan mengakibatkan variabel bebas lainnya berubah. Oleh karena itu, dalam membuat regresi berganda variabel bebas yang baik adalah variabel bebas yang mempunyai hubungan dengan variabel terikat tetapi tidak mempunyai hubungan dengan variabel bebas lainnya.</p>
+<p>Untuk mendeteksi keberadaan multikolinieritas dapat dilakukan dengan melihat nilai Tolerance dan Variance Inflation Factor (VIF) pada model regresi. Kriteria pengambilan keputusan terkait uji multikolinearitas adalah sebagai berikut (Ghozali, 2016) :</p>
+<p>o Jika nilai VIF &lt; 10 atau nilai Tolerance &gt; 0,01, maka dinyatakan tidak terjadi multikolinearitas.</p>
+<p>0 Jika nilai VIF &gt; 10 atau nilai Tolerance &lt; 0,01, maka dinyatakan terjadi multikolinearitas.</p>
+<p>o Jika koefisien korelasi masing-masing variabel bebas &gt; 0,8 maka terjadi multikolinearitas. Tetapi jika koefisien korelasi masing-masing variabel bebas &lt; 0,8 maka tidak terjadi multikolinearitas.</p></li>
+<li><p>Uji Normalitas</p>
+<p>Dalam melakukan perhitungan statistik, tentu data yang kita miliki harus benar-benar mewakili populasi, sehingga hasil penelitian yang dibangun bisa digeneralisasikan pada populasi, dan sifat dari karakteristik populasi adalah berdsitribusi normal. Suatu data dapat diasumsikan berdistribusi normal Jika nilai p-value &gt; 0.05 (alpha atau taraf nyata)</p>
+<p>Untuk mendeteksi apakah data normal atau tidak, bisa menggunakan pengujian yaitu dengan Uji Chi-square, Uji Kolmogorov Smirnov, Uji Liliefors dan Uji Shapiro Wilk.</p></li>
+<li><p>Uji Heteroskedastisitas</p>
+<p>Homoskdeastisitas memiliki kebalikan yaitu Heteroskedastisitas. Heteroskedastisitas adalah adanya ketidaksamaan varian dari residual untuk semua pengamatan pada model regresi.</p>
+<p>Biasanya heteroskedastisitas terjadi pada data cross section yaitu data yang diambil pada satu waktu, yang mewakili berbagai ukuran (kecil, sedang, dan besar). Oleh karena itu, cara pendeteksian adanya heterosdekastisitas yang paling mudah adalah melihat grafik atau gambar. Data dapat diasumsikan tidak terkena Heteroskedastisitas Jika nilai p-value &gt; 0.05 (alpha atau taraf nyata).</p>
+<p>Adapun cara lain untuk mendeteksi ada tidaknya heteroskedastitas yaitu dengan melakukan beberapa pengujian, diantaranya adalah Uji Korelasi Spearman, Uji Park, Uji White.</p></li>
+<li><p>Uji Autokorelasi</p>
+<p>Autokorelasi atau korelasi serial merupakan suatu kondisi dimana komponen variabel random error berkorelasi berdasarkan urutan waktu (dalam data time series) atau urutan ruang (pada data cross section). Untuk mendeteksi autokorelasi, dapat digunakan uji Durbin Watson. Asumsi Uji Durbin Watson antara lain :</p>
+<p>o Model regresi mengandung komponen intersep</p>
+<p>o Variabel penjelas/independen bersifat non-stochastic/fixed dalam pengambilan sampel yang berulang Digunakan hanya untuk menguji model eror autoregresif orde pertama. Oleh karena itu, tidak dapat digunakan untuk menguji model autoregresif dengan orde tinggi.</p>
+<p>o Komponen eror diasumsikan berdistribusi normal.</p>
+<p>o Model regresi tidak mengandung variabel independen yang terlambat atau tertinggal (lag) varaibel dependen, yang mana akan terjadi ketika melakukan pendugaan sebuah model dinamis.</p></li>
 </ol>
 </div>
 </div>
@@ -301,9 +327,6 @@ trainingRowIndex &lt;- sample(3:NROW(data_ipm_ntt_2018), 0.7*NROW(data_ipm_ntt_2
 trainingData &lt;- data_ipm_ntt_2018[trainingRowIndex, ]
 testData &lt;- data_ipm_ntt_2018[-trainingRowIndex,]</code></pre>
 </div>
-<div id="plot" class="section level3">
-<h3>Plot</h3>
-</div>
 <div id="mencari-intecerp-dan-slope" class="section level3">
 <h3>Mencari intecerp dan slope</h3>
 <p>Sebelum membuat model kita harus mencari nilai intercept dan slope (β) terlebih dahulu.</p>
@@ -324,6 +347,15 @@ print(lm.data_ipm_ntt_2018)</code></pre>
 <p><strong>Intercept</strong> : 3.5527863</p>
 <p><strong>Slope (β)</strong> :</p>
 <p>AHH : 0.4669211, HLS : 0.8108944, RLS : 1.0406340, PRPK :0.0015438, PDRB : -0.0001155</p>
+</div>
+<div id="actual-vs-prediction" class="section level3">
+<h3>Actual vs Prediction</h3>
+<p>Membuat dataframe dari IPM (Actual) dan perf.pred (Prediksi)</p>
+<pre class="r"><code>actuals.preds &lt;- data.frame(cbind(actuals = testData$IPM, predicteds = perf.pred))
+cor(actuals.preds)</code></pre>
+<pre><code>##             actuals predicteds
+## actuals    1.000000   0.994194
+## predicteds 0.994194   1.000000</code></pre>
 <pre class="r"><code># Ringkasan model linear regression multivariabel
 
 summary(lm.data_ipm_ntt_2018)</code></pre>
@@ -349,15 +381,14 @@ summary(lm.data_ipm_ntt_2018)</code></pre>
 ## Residual standard error: 0.3522 on 9 degrees of freedom
 ## Multiple R-squared:  0.9968, Adjusted R-squared:  0.995 
 ## F-statistic: 556.8 on 5 and 9 DF,  p-value: 6.307e-11</code></pre>
+<p>Berdasarkan hasil output diatas, dapat dilihat bahwa Pendugaan parameter dari Indeks Pembangunan Manusia (IPM) yaitu :</p>
+<p><span class="math display">\[
+\hat{\mathrm{IPM}}=3.553+0.4669 \mathrm{AHH}+0.8109 \mathrm{HLS}+1.041 \mathrm{RLS}+0.001544 \mathrm{PRPK}+(-0,0001156 \mathrm{PDRB})
+\]</span></p>
 </div>
 <div id="analisis" class="section level3">
 <h3>Analisis</h3>
 <p>Perhatikan hasil output diatas. Jika <strong>nilai p-value</strong> dan <strong>Pr(&gt;|t|)</strong> kurang dari 0.05 maka variabel-variabel tersebut dapat dikatakan berpengaruh secara signifikan terhadap IPM. Dan sebaliknya jika <strong>nilai p-value</strong> dan <strong>Pr(&gt;|t|)</strong> lebih dari 0.05 maka variabel-variabel tersebut dapat dikatakan tidak berpengaruh secara signifikan terhadap IPM.</p>
-<p>Berdasarkan hasil output diatas, dapat dilihat bahwa :</p>
-<p>Pendugaan parameter Indeks Pembangunan Manusia (IPM) yaitu :</p>
-<p><span class="math display">\[
-\hat{\mathrm{Y}}=3.553+0.4669 \mathrm{AHH}+0.8109 \mathrm{HLS}+1.041 \mathrm{RLS}+0.001544 \mathrm{PRPK}+(-0,0001156 \mathrm{PDRB})
-\]</span></p>
 <p><a href="http://bit.ly/3GGyVfA"><strong>Uji Simultan</strong></a></p>
 <p>p-value = 6.307e-11. Karena nilai p-value (6.307e-11) &lt; 0.05 Maka dapat disimpulkan bahwa terdapat pengaruh yang signifikan antara variabel prediktor terhadap variabel respon secara simultan.</p>
 <p><a href="https://accounting.binus.ac.id/2021/08/12/memahami-uji-t-dalam-regresi-linear/"><strong>Uji Parsial</strong></a></p>
@@ -385,18 +416,168 @@ summary(lm.data_ipm_ntt_2018)</code></pre>
 \end{array} \\
 \hline
 \end{array}\]</span>
-<pre class="r"><code># Pendeteksian multikolinearitas
+<p>Karena PDRB tidak berpengaruh secara signifikan terhadap Indeks Pembangunan Manusia (IPM) maka PDRB tidak perlu diikut sertakan kedalam model Linear regression.</p>
+<pre class="r"><code># Menghapus kolom variabel PDRB
+ipm2 &lt;-data_ipm_ntt_2018[-6]
+ipm2</code></pre>
+<pre><code>##             Wilayah.NTT   AHH   HLS   RLS  PRPK   IPM
+## 1           Sumba Barat 66.58 12.88  6.52  7275 62.91
+## 2           Sumba Timur 64.45 12.80  6.74  9351 64.65
+## 3                Kupang 63.86 13.83  7.11  7472 63.55
+## 4  Timor Tengah Selatan 65.91 12.55  6.47  6855 61.58
+## 5    Timor Tengah Utara 66.45 13.29  7.26  6357 62.65
+## 6                  Belu 63.81 12.25  7.08  7403 61.86
+## 7                  Alor 60.80 12.09  7.81  6750 60.14
+## 8               Lembata 66.57 12.26  7.95  7253 63.96
+## 9          Flores Timur 64.70 12.89  7.42  7573 63.55
+## 10                Sikka 66.61 12.70  6.69  7958 63.89
+## 11                 Ende 64.75 13.76  7.79  8995 66.62
+## 12                Ngada 67.59 12.68  8.07  8857 67.10
+## 13            Manggarai 66.23 12.71  7.26  7175 63.32
+## 14            Rote Ndao 63.80 13.16  7.24  6484 61.51
+## 15      Manggarai Barat 66.58 11.55  7.18  7426 62.58
+## 16     Sumba Barat Daya 67.96 12.32  5.76  6093 60.07
+## 17         Sumba Tengah 68.02 13.04  6.32  6298 61.89
+## 18              Nagekeo 66.62 12.46  7.82  8219 65.35
+## 19      Manggarai Timur 67.62 11.34  6.65  5809 59.49
+## 20          Sabu Raijua 59.53 13.12  6.06  5245 55.79
+## 21               Malaka 64.52 12.76  6.60  5894 59.66
+## 22          Kota Kupang 68.58 16.08 11.46 13199 78.84</code></pre>
+<pre class="r"><code># Membuat model linear regression multivariabel dari &quot;ipm2&quot; 
+
+lm.ipm2 &lt;- lm(IPM ~ AHH+HLS+RLS+PRPK, data = trainingData)
+perf.pred &lt;- predict(lm.ipm2, testData)
+
+print(lm.ipm2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = IPM ~ AHH + HLS + RLS + PRPK, data = trainingData)
+## 
+## Coefficients:
+## (Intercept)          AHH          HLS          RLS         PRPK  
+##     7.59192      0.45069      0.61382      1.05894      0.00142</code></pre>
+<pre class="r"><code># Ringkasan model linear regression multivariabel dari &quot;ipm2&quot; 
+summary(lm.ipm2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = IPM ~ AHH + HLS + RLS + PRPK, data = trainingData)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.5520 -0.2316  0.0942  0.2037  0.5455 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 7.5919209  4.4444496   1.708 0.118403    
+## AHH         0.4506870  0.0562064   8.018 1.15e-05 ***
+## HLS         0.6138238  0.1617344   3.795 0.003513 ** 
+## RLS         1.0589378  0.2065395   5.127 0.000446 ***
+## PRPK        0.0014204  0.0001567   9.062 3.89e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3767 on 10 degrees of freedom
+## Multiple R-squared:  0.9959, Adjusted R-squared:  0.9943 
+## F-statistic: 608.1 on 4 and 10 DF,  p-value: 6.879e-12</code></pre>
+</div>
+<div id="analisis-1" class="section level3">
+<h3>Analisis</h3>
+<p>Berdasarkan hasil output diatas, dapat dilihat bahwa Pendugaan parameter dari Indeks Pembangunan Manusia (IPM) yang baru yaitu :</p>
+<p><span class="math display">\[
+\hat{\mathrm{IPM}}=7.5919209+0.4506870 \mathrm{AHH}+ 0.6138238 \mathrm{HLS}+1.0589378 \mathrm{RLS}+ 0.0014204 \mathrm{PRPK}
+\]</span></p>
+<p>Dari output diatas dapat dilihat bahwa semua variabel prediktor sudah signifikan terhadap variabel respon.</p>
+<p>Dari output diatas juga dapat dilihat terdapat nilai <em>R-squared</em> dan <em>nilai Adjusted R-squared</em>. Nilai-nilai tersebut akan digunkan untuk mengetahui apakah model regresi yang dipakai cocok dengan data yang ada. Jika nilai R-squared dan nilai Adjusted R-squared besar (&gt; 0.70) maka model tesebut dapat dikatakan baik.</p>
+<p>Berdasarkan hasil diatas, dapat diketahui bahwa nilai R-squared = 0.9959 dan nilai Adjusted R-squared = 0.9943. Karena nilainya &gt; 0.70, maka model tesebut dapat dikatakan baik.</p>
+<p><strong>Asumsi Klasik</strong></p>
+<ol style="list-style-type: decimal">
+<li><a href="http://www.spssindonesia.com/2014/02/uji-multikolonieritas-dengan-melihat.html">Multikolinearitas</a></li>
+</ol>
+<pre class="r"><code># Sebelum mendeteksi multikolinearitas diperlukan packages &quot;car&quot;
 
 library(car)</code></pre>
 <pre><code>## Warning: package &#39;car&#39; was built under R version 4.1.3</code></pre>
 <pre><code>## Loading required package: carData</code></pre>
 <pre><code>## Warning: package &#39;carData&#39; was built under R version 4.1.3</code></pre>
-<pre class="r"><code>vif(lm.data_ipm_ntt_2018)</code></pre>
-<pre><code>##       AHH       HLS       RLS      PRPK      PDRB 
-##  1.624863  4.597609  7.453389 11.017289  8.121980</code></pre>
+<pre class="r"><code># Pendeteksian multikolinearitas
+
+vif(lm.ipm2)</code></pre>
+<pre><code>##      AHH      HLS      RLS     PRPK 
+## 1.563618 2.709113 7.426006 8.535239</code></pre>
+<p>Karena nilai VIF dari tiap variabel kurang dari 10, maka tidak terjadi multikolinieritas. Artinya, asumsi multikolinieritas terpenuhi.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><a href="https://www.statistikian.com/2013/01/uji-normalitas.html">Normalitas</a></li>
+</ol>
+<pre class="r"><code># Untuk melakukan uji Normalitas dibutuhkan package tseries
+
+library(tseries)</code></pre>
+<pre class="r"><code># mencari galat 
+sisa &lt;- residuals (lm.ipm2)
+sisa</code></pre>
+<pre><code>##            17             8            21            10             3 
+## -0.0002507957  0.1194508133 -0.2036255596  0.0942009042  0.5455431180 
+##            15            18            14            11             4 
+## -0.2595930498  0.1296804267  0.2095669812  0.3740102777 -0.0085465591 
+##            16             5            20            13            22 
+## -0.4670635859  0.2346650203 -0.5519902372  0.1979240865 -0.4139718408</code></pre>
+<p>Selanjutnya mengecek apakah data berdistribusi normal atau tidak dengan menggunakan <a href="https://www.projectpro.io/recipes/what-is-shapiro-test-perform-it-r">Uji Shapiro</a></p>
+<pre class="r"><code># Mengecek Normalitas
+shapiro.test(sisa)</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  sisa
+## W = 0.95655, p-value = 0.6327</code></pre>
+<p>Berdasarkan uji shapiro wilk diatas, diperoleh nilai p-value (0.6327) &gt; α(0.05) maka dapat disimpulkan bahwa galat menyebar secara normal, artinya uji asumsi normalitas terpenuhi.</p>
+<p>3.<a href="https://www.statistikian.com/2013/01/uji-heteroskedastisitas.html">Heteroskedastisitas</a></p>
+<pre class="r"><code># Untuk mendeteksi Heteroskedastisitas diperlukan packages lmtest
+library(lmtest)</code></pre>
+<pre><code>## Warning: package &#39;lmtest&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Loading required package: zoo</code></pre>
+<pre><code>## Warning: package &#39;zoo&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;zoo&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+<p>Selanjutnya mengecek apakah ada Heteroskedastisitas atau tidak pada data (analisis regresi) dengan menggunakan <a href="https://www.statology.org/breusch-pagan-test-r/">uji Breusch-Pagan</a></p>
+<pre class="r"><code>bptest(lm.ipm2)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  lm.ipm2
+## BP = 7.1248, df = 4, p-value = 0.1294</code></pre>
+<p>Berdasarkan uji bp-test, dapat disimpulkan bahwa nilai p-value ( 0.1294) &gt; α(0.05) maka dapat disimpulkan bahwa tidak terjadi heteroskedastisitas.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p><a href="https://www.statistikian.com/2017/01/uji-autokorelasi-durbin-watson-spss.html">Autokorelasi</a></p>
+<p>Selanjutnya mengecek apakah ada Heteroskedastisitas atau tidak pada data (analisis regresi) dengan menggunakan uji Durbin Watson</p></li>
+</ol>
+<pre class="r"><code>dwtest(lm.ipm2)</code></pre>
+<pre><code>## 
+##  Durbin-Watson test
+## 
+## data:  lm.ipm2
+## DW = 2.5719, p-value = 0.8309
+## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+<p>Berdasarkan uji Durbin Watson, nilai p-value(0.8309) &gt; α(0.05), maka dapat disimpulkan bahwa tidak terjadi kasus autokorelasi pada galat.</p>
 </div>
 <div id="membuat-model" class="section level3">
 <h3>Membuat Model</h3>
+<p>Karena data sudah diuji menggunakan asumsi klasik (data berdistribusi normal dan tidak terdapat Multikolinearitas, Heteroskedastisitas, dan Autokorelasi), maka persamaan yang dihasilkan dari data IPM di NTT 2018 memenuhi kaidah best linear unbiased estimator (BLUE).</p>
+<p>Berikut adalah persamaannya :</p>
+<pre class="r"><code>print(lm.ipm2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = IPM ~ AHH + HLS + RLS + PRPK, data = trainingData)
+## 
+## Coefficients:
+## (Intercept)          AHH          HLS          RLS         PRPK  
+##     7.59192      0.45069      0.61382      1.05894      0.00142</code></pre>
+<p><span class="math display">\[
+{\mathrm{IPMi}}=7.59192+0.45069 \mathrm{AHH}+ 0.61382\mathrm{HLS}+1.05894 \mathrm{RLS}+ 0.00142 \mathrm{PRPK} +\mathcal{Ei} \]</span> <span class="math display">\[({i=1,2,3, \ldots, 22})
+\]</span> ### Evaluasi Model</p>
+<p>Mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evluasi lagi berdasarkan nilai eror dan AIC.</p>
+<p><em>Dilihat Berdasarkan Erornya</em></p>
 </div>
 </div>
 </div>
