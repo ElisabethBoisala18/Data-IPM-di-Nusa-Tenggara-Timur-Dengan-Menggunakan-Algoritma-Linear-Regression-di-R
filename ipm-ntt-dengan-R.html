@@ -7,7 +7,7 @@
 
         <meta name="author" content="Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah" />
     
-        <meta name="date" content="2023-01-14" />
+        <meta name="date" content="2023-01-15" />
     
     <title>Analisis data IPM menggunakan Algoritma Linear Regression di R</title>
 
@@ -153,7 +153,7 @@
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> Elisabeth Boisala - Institut Teknologi Statistika dan Bisnis Muhammadiyah
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-14</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2023-01-15</p>
            
 
    
@@ -594,7 +594,7 @@ library(lmtest)</code></pre>
 <div id="evaluasi-model" class="section level3">
 <h3>Evaluasi Model</h3>
 <p>Mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evluasi lagi berdasarkan nilai eror dan AIC.</p>
-<p><em>Dilihat Berdasarkan Erornya</em></p>
+<p><strong>Dilihat Berdasarkan Erornya</strong></p>
 <pre class="r"><code># Syarat pada Min Max Accuracy adalah semakin besar nilainya artinya  semakin baik.
 
 min_max_accuracy &lt;- mean(apply(actuals.preds2 , 1, min) / apply(actuals.preds2, 1, max))

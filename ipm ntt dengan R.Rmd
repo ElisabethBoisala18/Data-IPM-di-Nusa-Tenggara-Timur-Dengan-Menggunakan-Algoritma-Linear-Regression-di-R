@@ -401,7 +401,7 @@ $$
 
  Mengevaluasi model tidak hanya dilihat dari nilai R-squared dan nilai Adjusted R-squared karena nilai R-squared dan nilai Adjusted R-squared saja masih kurang akurat untuk menyatakan bahwa model tersebut sudah baik, maka perlu dilakukan evluasi lagi berdasarkan nilai eror dan AIC.
  
-  *Dilihat Berdasarkan Erornya*
+  **Dilihat Berdasarkan Erornya**
 ```{r eval=FALSE}
 # Syarat pada Min Max Accuracy adalah semakin besar nilainya artinya  semakin baik.
 
